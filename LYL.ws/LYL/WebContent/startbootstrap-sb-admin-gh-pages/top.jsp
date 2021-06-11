@@ -51,6 +51,7 @@
 .big-box {
       width: 100%;
       height: 100vh;
+      background-color: gray;
       border-top: 1px solid black;
     }
 
