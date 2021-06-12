@@ -11,10 +11,8 @@
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    
-    
-    	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+		
+   		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <title>Web hello</title>
   <style>
@@ -29,13 +27,15 @@
       margin: 0 5px;
     }
     body{
-      margin: 0 100px;
       width:1280px;
     }
 
     header{
       text-align: center;
     }
+	main{
+		width: 1250px;
+	}
     #carouselExampleCaptions{
       width: 1200px;
       height: 500px;
@@ -43,38 +43,73 @@
     #fe{
       background: rgba(0, 0, 0, 85%);
     }
-    body { 
-      margin: 0px;
-      padding: 0px;
+
+	.video_main_list { 
+      	display: inline-block;
+      	height : 300px;
+      	padding-left:5px;
+        background-repeat: no-repeat;
+        background-size: 100%;
+       
     }
-
-.big-box {
-      width: 100%;
-      height: 100vh;
-      background-color: gray;
-      border-top: 1px solid black;
+	.video_search_list { 
+		clear: both;
+      	display: inline-block;
+      	width : 1250px;
+      	height : 300px;
+      	padding-left:100px;
+        background-repeat: no-repeat;
+        background-size: 100%;
+       
     }
-
-
+    .main_Thumbnail {
+    	margin: 0;
+    	width: 300px; 
+    	height: auto;
+    	padding-right: 10px;
     
+    }
+    .search_Thumbnail {
+    	margin: 0;
+    	width: 500px; 
+    	height: auto;
+    	padding-right: 10px;
+    	float: left;
+    	display: inline;
+    
+    }
+    .video_info{
+    	display: inline-block;
+    	cursor: pointer;
+    }
+    .video_tilte{
+    	margin : 0;
+    	font-weight: bold;
+    	font-size: 20px;
+    }
+    .search_video_tilte {
+    	margin : 0;
+    	font-weight: bold;
+    	font-size: 20px;
+    	width: 750px;
+    }
+    .video_hits{
+    	margin : 0;
+    	color:gray;
+    	font-size: 15px;
+    }
+    .video_uploaderid{
+    	
+    	margin : 0;
+    	color:gray;
+    	font-size: 15px;
+    }
     
 	
 
 
   </style>
  </head>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->

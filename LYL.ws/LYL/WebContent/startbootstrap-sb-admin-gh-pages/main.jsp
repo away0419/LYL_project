@@ -1,22 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="top.jsp"%>
-
 <script>
-    var page = 2;
-
     $(window).scroll(function() {
-        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-        $("main").append('<iframe src="https://www.youtube.com/embed/b6li05zh3Kg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>');
-
+        var videoinfo= '<div class="video_info"></div>';
+    	var a ='<img class="main_Thumbnail" src="http://img.youtube.com/vi/lgPi5GhEj0c/maxresdefault.jpg">';
+    	var videotitle='<p class="video_tilte">title</p>';
+    	var uploaderid='<p class="video_uploaderid">id</p>';
+    	var videohits='<p class="video_hits">조회수</p>';
+		
+    	if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+        	$("main").append('<div class="video_main_list">');
+        	$(".video_main_list").last().prepend('<h1>테마<h1>');
+        	for(var i=0; i<4; i++){
+        		$('.video_main_list').last().append(videoinfo);
+        		$('.video_info').last().append(a);
+        		$('.video_info').last().append(videotitle);
+        		$('.video_info').last().append(uploaderid);
+        		$('.video_info').last().append(videohits);
+        		
+        	} 
+        	
 
         }
     });
 </script>
 
-
-
-   
  <body>
    <header>
     <h1>Hello World!!!</h1>
@@ -59,25 +68,9 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
-<div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-    Dropdown
-    
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-  </ul>
-</div>
 
-<iframe src="https://www.youtube.com/embed/b6li05zh3Kg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
-<hr>
-<iframe src="https://www.youtube.com/embed/b6li05zh3Kg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
-<hr>
-<iframe src="https://www.youtube.com/embed/b6li05zh3Kg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
-<hr>
+<iframe id="player" width="640" height="360" src="http://www.youtube.com/embed/lgPi5GhEj0c?autoplay=1&mute=1"></iframe>
+
+<%@ include file="bottom.jsp"%>
 
 
