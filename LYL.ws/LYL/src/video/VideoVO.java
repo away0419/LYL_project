@@ -4,16 +4,16 @@ import java.sql.Timestamp;
 
 public class VideoVO {
 	private int vidNo;
-	private String vidTitle; /* Á¦¸ñ */
-	private int vidHits; /* Á¶È¸¼ö */
-	private int vidCom; /* ´ñ±Û */
-	private String vidurl; /* ¿µ»ó°æ·Î */
-	private int vidLike; /* ÁÁ¾Æ¿ä */
-	private Timestamp vidDate; /* ¾÷·Îµå ½Ã°£ */
-	private String vidEx; /* ¿µ»ó ¼³¸í */
-	private int vidTheme; /* ÅÂ¸¶ ¹øÈ£ */
-	private int userNo; /* Å©¸®¿¡ÀÌÅÍ */
-	private String vidThu; /* ½æ³×ÀÏ°æ·Î */
+	private String vidTitle; /* ï¿½ï¿½ï¿½ï¿½ */
+	private int vidHits; /* ï¿½ï¿½È¸ï¿½ï¿½ */
+	private int vidCom; /* ï¿½ï¿½ï¿½ */
+	private String vidurl; /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+	private int vidLike; /* ï¿½ï¿½ï¿½Æ¿ï¿½ */
+	private Timestamp vidDate; /* ï¿½ï¿½ï¿½Îµï¿½ ï¿½Ã°ï¿½ */
+	private String vidEx; /* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
+	private int vidTheme; /* ï¿½Â¸ï¿½ ï¿½ï¿½È£ */
+	private int userNo; /* Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+	private String vidThu; /* ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ */
 	
 	public VideoVO() {
 	}
