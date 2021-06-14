@@ -86,9 +86,7 @@
 								$('.video_info').last().append(videotitle);
 								$('.video_info').last().append(uploaderid);
 								$('.video_info').last().append(videohits);
-
 							}
-
 						}
 					});
 </script>

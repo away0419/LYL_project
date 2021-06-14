@@ -12,21 +12,17 @@ public class MyuserVO {
 	private String userEmail;
 	private Timestamp userJoin;
 	private int userSub;
-
-	public MyuserVO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
+	private String  userImg;
+	
 	@Override
 	public String toString() {
 		return "MyuserVO [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
 				+ ", userPhone=" + userPhone + ", userEmail=" + userEmail + ", userJoin=" + userJoin + ", userSub="
-				+ userSub + "]";
+				+ userSub + ", userImg=" + userImg + "]";
 	}
 
 	public MyuserVO(int userNo, String userId, String userPwd, String userName, int userPhone, String userEmail,
-			Timestamp userJoin, int userSub) {
+			Timestamp userJoin, int userSub, String userImg) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -36,6 +32,12 @@ public class MyuserVO {
 		this.userEmail = userEmail;
 		this.userJoin = userJoin;
 		this.userSub = userSub;
+		this.userImg = userImg;
+	}
+
+	public MyuserVO() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getUserNo() {
@@ -102,4 +104,14 @@ public class MyuserVO {
 		this.userSub = userSub;
 	}
 
+	public String getUserImg() {
+		return userImg;
+	}
+
+	public void setUserImg(String userImg) {
+		this.userImg = userImg;
+	}
+	
+	
+	
 }
