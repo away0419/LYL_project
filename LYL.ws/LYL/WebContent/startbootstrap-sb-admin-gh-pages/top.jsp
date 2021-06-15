@@ -1,7 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -15,7 +16,9 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
 	crossorigin="anonymous"></script>
-<link
+
+<!-- 여기 아래 왜추가?? -->	
+<!-- <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
@@ -24,31 +27,49 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous"></script> -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	$('.form-control').keydown(function(e){
+    		if(e.keyCode==13){	
+    			event.preventDefault();
+    			location.href="videosearch.jsp";
+    		}
+    	});
+
+    	$('#btnNavbarSearch').click(function(){
+    		location.href="videosearch.jsp";
+    	});
+    });
+
+
+</script>
+
 <title>Web hello</title>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 		<!-- Navbar Brand-->
-		<a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+		<a class="navbar-brand ps-3" href="index.html">LYL project</a>
 		<!-- Sidebar Toggle-->
 		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
 			id="sidebarToggle" href="#!">
 			<i class="fas fa-bars"></i>
 		</button>
 		<!-- Navbar Search-->
-		<form
-			class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-			<div class="input-group">
+		<form id=""
+			class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 w-75">
+			<div class="input-group ">
 				<input class="form-control" type="text" placeholder="Search for..."
-					aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+					aria-label="Search for..." aria-describedby="btnNavbarSearch"/>
 				<button class="btn btn-primary" id="btnNavbarSearch" type="button">
 					<i class="fas fa-search"></i>
 				</button>
 			</div>
 		</form>
-		<!-- Navbar-->
+		<!-- Navbar 오른쪽위에 유저버튼-->
 		<ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
@@ -56,10 +77,11 @@
 					class="fas fa-user fa-fw"></i></a>
 				<ul class="dropdown-menu dropdown-menu-end"
 					aria-labelledby="navbarDropdown">
-					<li><a class="dropdown-item" href="#!">Settings</a></li>
-					<li><a class="dropdown-item" href="#!">Activity Log</a></li>
+					<li><a class="dropdown-item" href="#!">Register</a></li>
 					<li><hr class="dropdown-divider" /></li>
 					<li><a class="dropdown-item" href="#!">Logout</a></li>
+					<li><a class="dropdown-item" href="#!">Login</a></li>
+					<!-- session 에서 userid 가 있으면 다르게 보이게  -->
 				</ul></li>
 		</ul>
 	</nav>
@@ -69,11 +91,11 @@
 				id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
-						<div class="sb-sidenav-menu-heading">Core</div>
-						<a class="nav-link" href="index.html">
+						<div class="sb-sidenav-menu-heading">main</div>
+						<a class="nav-link" href="main.jsp">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
-							</div> Dashboard
+							</div> HOME
 						</a>
 						<div class="sb-sidenav-menu-heading">Interface</div>
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
@@ -81,7 +103,7 @@
 							aria-controls="collapseLayouts">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-columns"></i>
-							</div> Layouts
+							</div> 내 정보
 							<div class="sb-sidenav-collapse-arrow">
 								<i class="fas fa-angle-down"></i>
 							</div>
@@ -89,12 +111,12 @@
 						<div class="collapse" id="collapseLayouts"
 							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="layout-static.html">Static
-									Navigation</a> <a class="nav-link" href="layout-sidenav-light.html">Light
-									Sidenav</a>
+								<a class="nav-link" href="myPage.jsp">마이페이지</a> <a class="nav-link"
+									href="watchRecord.jsp">시청 기록</a> <a class="nav-link"
+									href="afterVideo.jsp">나중에볼 동영상</a>
 							</nav>
 						</div>
-						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+					<!-- 	<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
 							data-bs-target="#collapsePages" aria-expanded="false"
 							aria-controls="collapsePages">
 							<div class="sb-nav-link-icon">
@@ -141,8 +163,9 @@
 									</nav>
 								</div>
 							</nav>
-						</div>
-						<div class="sb-sidenav-menu-heading">Addons</div>
+						</div> -->
+					<!-- 	나중에 필요하면 열어서 사용
+					<div class="sb-sidenav-menu-heading">Addons</div>
 						<a class="nav-link" href="charts.html">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-chart-area"></i>
@@ -151,7 +174,7 @@
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-table"></i>
 							</div> Tables
-						</a>
+						</a> -->
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">

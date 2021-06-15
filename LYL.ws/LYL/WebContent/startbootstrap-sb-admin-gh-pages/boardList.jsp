@@ -1,3 +1,8 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="board.BoardVO"%>
+<%@page import="java.util.List"%>
+<%@page import="board.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ include file="top.jsp" %>
@@ -62,6 +67,23 @@
 	}
 </style>
 
+<%
+	//[1] myPage.jsp에서 [게시판]버튼 클릭해서 get방식으로 이동
+	// 1. 파라미터 읽어오기
+	
+	// 2. DB
+	BoardDAO dao = new BoardDAO();
+	List<BoardVO> list = null;
+	try{
+		list=dao.selectAllBoard();
+	}catch(SQLException e){
+		e.printStackTrace();
+	}
+	
+	//3.
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");   
+	
+%>
 <div class="listBody">
 	<button class="upload">글쓰기</button>
 	<div class="titleH"><h3>게시판</h3></div>
@@ -84,13 +106,23 @@
 		</thead> 
 		<tbody>
 			<!-- 게시글이 없을 경우 -->
-			<td colspan="5">작성된 게시글이 없습니다.</td>
-
-			<!-- 게시글이 있을 경우 -->
-			<tr>
-				<!-- 반복 시작 -->
-				<!-- 반복 끝 -->
-			</tr>
+			<%if(list==null || list.isEmpty()){ %>
+		         <tr>
+		            <td colspan="5" class="align_center">데이터가 없습니다.</td>
+		         </tr>
+	     	 <%}else{ %>
+					<!-- 게시글이 있을 경우 -->
+				<% for(int i=0;i<list.size() ;i++){ 
+	     	 		BoardVO vo = list.get(i); %>
+					<tr>
+						<td><%=vo.getBoMyNo() %></td>
+						<td><%=vo.getBoTitle() %></td>
+						<td><%=vo.getUserNo() %></td>
+						<td><%=sdf.format(vo.getBoDate()) %></td>
+						<td><%=vo.getBoHits() %></td>
+					</tr>
+				<% } //for%>
+			<%}//if %>
 		</tbody>
 	</table>
 </div>

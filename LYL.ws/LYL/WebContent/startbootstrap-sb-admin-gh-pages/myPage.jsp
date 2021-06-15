@@ -1,71 +1,21 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="src.myuser.MyuserVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="top.jsp"%>
-<style>
-.video_main_list {
-	display: inline-block;
-	height: 300px;
-	padding-left: 5px;
-	background-repeat: no-repeat;
-	background-size: 100%;
-}
+<link href="css/myPageStyles.css" rel="stylesheet">
+<jsp:useBean id="myuserService" class="src.myuser.MyuserService" scope="session" ></jsp:useBean>
+<% 
+String userid =(String) session.getAttribute("userid");
+userid = "admin"; //임시로 admin 해둔거
+MyuserVO vo = null;
+vo = myuserService.selectMyuser(userid);
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+String joindate = sdf.format(vo.getUserJoin());
 
-.video_search_list {
-	clear: both;
-	display: inline-block;
-	width: 1250px;
-	height: 300px;
-	padding-left: 100px;
-	background-repeat: no-repeat;
-	background-size: 100%;
-}
 
-.main_Thumbnail {
-	margin: 0;
-	width: 300px;
-	height: auto;
-	padding-right: 10px;
-}
-
-.search_Thumbnail {
-	margin: 0;
-	width: 500px;
-	height: auto;
-	padding-right: 10px;
-	float: left;
-	display: inline;
-}
-
-.video_info {
-	display: inline-block;
-	cursor: pointer;
-}
-
-.video_tilte {
-	margin: 0;
-	font-weight: bold;
-	font-size: 20px;
-}
-
-.search_video_tilte {
-	margin: 0;
-	font-weight: bold;
-	font-size: 20px;
-	width: 750px;
-}
-
-.video_hits {
-	margin: 0;
-	color: gray;
-	font-size: 15px;
-}
-
-.video_uploaderid {
-	margin: 0;
-	color: gray;
-	font-size: 15px;
-}
-</style>
+%>
 
 <script>
 	$(window)
@@ -92,19 +42,20 @@
 </script>
 
 <h1 class="mt-4">마이페이지</h1>
-
-
 <div class="container position-relative px-4 px-lg-5">
 	<div class="row gx-4 gx-lg-5 justify-content-center">
 		<div class="col-md-10 col-lg-8 col-xl-7">
-			<img src="img/200x200.jpg" class="img-thumbnail" alt="...">
+			<img id="userImg" src="img/200x200.jpg" class="img-thumbnail" alt="...">
+			
 			<div class="d-inline-flex position-relative start-50">
 				<button type="button" class="btn btn-primary me-2">영상 업로드</button>
 				<button type="button" class="btn btn-primary">게시판</button>
 			</div>
-			<div>
-				<h4>dddddddddddddddddddddddddd</h4>
-				<span> ddddddddddddddddddddddddddddddd </span>
+			<div class="userInfo">
+				<h4 id="userid">userid :&nbsp;<%=vo.getUserId() %></h4>
+				<p id="userEmail">userEmail :&nbsp;<%=vo.getUserEmail()%></p>
+				<p id="userJoin">userJoin :&nbsp;<%=joindate %></p>
+				<p id="userSub">userSub :&nbsp;<%=vo.getUserSub() %> </p>
 			</div>
 		</div>
 	</div>

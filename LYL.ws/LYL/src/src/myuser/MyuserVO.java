@@ -12,17 +12,19 @@ public class MyuserVO {
 	private String userEmail;
 	private Timestamp userJoin;
 	private int userSub;
-	private String  userImg;
-	
-	@Override
-	public String toString() {
-		return "MyuserVO [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
-				+ ", userPhone=" + userPhone + ", userEmail=" + userEmail + ", userJoin=" + userJoin + ", userSub="
-				+ userSub + ", userImg=" + userImg + "]";
+	private String userImgName;
+	private long userImgSize;
+	private String userImgOriName;
+	private String userDelFalg;
+
+	public MyuserVO() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public MyuserVO(int userNo, String userId, String userPwd, String userName, int userPhone, String userEmail,
-			Timestamp userJoin, int userSub, String userImg) {
+			Timestamp userJoin, int userSub, String userImgName, long userImgSize, String userImgOriName,
+			String userDelFalg) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -32,12 +34,18 @@ public class MyuserVO {
 		this.userEmail = userEmail;
 		this.userJoin = userJoin;
 		this.userSub = userSub;
-		this.userImg = userImg;
+		this.userImgName = userImgName;
+		this.userImgSize = userImgSize;
+		this.userImgOriName = userImgOriName;
+		this.userDelFalg = userDelFalg;
 	}
 
-	public MyuserVO() {
-		super();
-		// TODO Auto-generated constructor stub
+	@Override
+	public String toString() {
+		return "MyuserVO [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
+				+ ", userPhone=" + userPhone + ", userEmail=" + userEmail + ", userJoin=" + userJoin + ", userSub="
+				+ userSub + ", userImgName=" + userImgName + ", userImgSize=" + userImgSize + ", userImgOriName="
+				+ userImgOriName + ", userDelFalg=" + userDelFalg + "]";
 	}
 
 	public int getUserNo() {
@@ -104,14 +112,40 @@ public class MyuserVO {
 		this.userSub = userSub;
 	}
 
-	public String getUserImg() {
-		return userImg;
+	public String getUserImgName() {
+		return userImgName;
 	}
 
-	public void setUserImg(String userImg) {
-		this.userImg = userImg;
+	public void setUserImgName(String userImgName) {
+		this.userImgName = userImgName;
+	}
+
+	public long getUserImgSize() {
+		return userImgSize;
+	}
+
+	public void setUserImgSize(long userImgSize) {
+		this.userImgSize = userImgSize;
+	}
+
+	public String getUserImgOriName() {
+		return userImgOriName;
+	}
+
+	public void setUserImgOriName(String userImgOriName) {
+		this.userImgOriName = userImgOriName;
+	}
+
+	public String getUserDelFalg() {
+		return userDelFalg;
+	}
+
+	public void setUserDelFalg(String userDelFalg) {
+		this.userDelFalg = userDelFalg;
 	}
 	
 	
+
 	
+
 }

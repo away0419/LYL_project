@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +15,24 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
 	crossorigin="anonymous"></script>
+<script type="text/javascript" src="../js/jquery-3.6.0.min.js">
+	$(function() {
+		$('.btList').click(function() {
+			location.href = "list.jsp";
+		});
+
+		$('form[name=frmWrite]').submit(function() {
+			$('.infobox').each(function(idx, item) {
+				if ($(this).val().length < 1) {
+					alert($(this).prev().text() + "을(를) 입력하세요");
+					$(item).focus();
+					event.preventDefault();
+					return false;
+				}
+			});
+		});
+	});
+</script>
 </head>
 <body class="bg-primary">
 	<div id="layoutAuthentication">
@@ -26,17 +47,17 @@
 										Account</h3>
 								</div>
 								<div class="card-body">
-									<form>
+									<form name="frmregister" method="post" action="register_ok.jsp" enctype="multipart/form-data">
 										<div class="row mb-3">
 											<div class="col-md-6">
 												<div class="form-floating mb-3 mb-md-0">
-													<input class="form-control" id="inputUserid" type="text"
+													<input name="userId" class="form-control" id="inputUserid" type="text"
 														placeholder="Enter your id" /> <label for="inputUserid">UserId</label>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-floating">
-													<input class="form-control" id="inputName" type="text"
+													<input name="userName" class="form-control" id="inputName" type="text"
 														placeholder="Enter your Name" /> <label for="inputName">Name</label>
 												</div>
 											</div>
@@ -44,7 +65,7 @@
 										<div class="row mb-3">
 											<div class="col-md-6">
 												<div class="form-floating mb-3 mb-md-0">
-													<input class="form-control" id="inputPassword"
+													<input name="userPwd" class="form-control" id="inputPassword"
 														type="password" placeholder="Create a password" /> <label
 														for="inputPassword">Password</label>
 												</div>
@@ -58,20 +79,24 @@
 											</div>
 										</div>
 										<div class="form-floating mb-3">
-											<input class="form-control" id="inputEmail" type="email"
+											<input name="userEmail" class="form-control" id="inputEmail" type="email"
 												placeholder="name@example.com" /> <label for="inputEmail">Email
 												address</label>
 										</div>
+										<div class="form-floating mb-3">
+											<input name="userHp" class="form-control" id="inputTel" type="tel"
+												placeholder="010-1234-1234" /> <label for="inputTel">tel</label>
+										</div>
 										<div class="form-group ">
 											<div class="form-control">
-												<label for="imgFile">프로필 사진을 올려주세요</label> <input
-													type="file" class="form-control-file" id="imgFile">
+												<label for="imgFile">프로필 사진을 올려주세요</label> <input name="upfile" type="file"
+													class="form-control-file" id="imgFile">
 											</div>
 										</div>
 										<div class="mt-4 mb-0">
 											<div class="d-grid">
-												<a class="btn btn-primary btn-block" href="register_ok.jsp">Create
-													Account</a>
+												<input class="btn btn-primary btn-block" type="submit" value="Create Account">
+													
 											</div>
 										</div>
 									</form>

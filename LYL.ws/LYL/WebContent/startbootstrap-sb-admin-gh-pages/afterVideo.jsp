@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ include file="top.jsp"%>
 <style>
 iframe {
@@ -10,9 +10,9 @@ iframe {
 </style>
 
 
-<h1>³ªÁß¿¡º¼ µ¿¿µ»ó</h1>
+<h1>ë‚˜ì¤‘ì—ë³¼ ë™ì˜ìƒ</h1>
 
-<h2>¸ñ·Ï¿¡ µ¿¿µ»óÀÌ ¾ø½À´Ï´Ù.</h2>
+<h2>ëª©ë¡ì— ë™ì˜ìƒì´ ì—†ìŠµë‹ˆë‹¤.</h2>
 
 <div class="container">
 
