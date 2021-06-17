@@ -44,7 +44,30 @@ public class ThemeDAO {
 		}
 		
 	}
-	
+	public String themeName(int themeNo) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String themeName="";
+		try {
+			conn = pool.getConnection();
+			
+			String sql = "select * from theme where thno=? order by thno";
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, themeNo);
+			
+			rs=ps.executeQuery();
+			
+			
+			while(rs.next()) {
+				themeName=rs.getString(2);
+			}
+		
+			return themeName;
+		}finally {
+			pool.dbClose(rs, ps, conn);
+		}
+	}
 	
 	
 }

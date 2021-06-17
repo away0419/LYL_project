@@ -16,5 +16,9 @@ public class ThemeService {
 		
 		return list;
 	}
-	
+	public String themeName(int themeNo) throws SQLException {
+		String themeName= dao.themeName(themeNo);
+		
+		return themeName;
+	}
 }

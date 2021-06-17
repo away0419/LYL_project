@@ -15,5 +15,14 @@ public class VideoService {
 		
 		return list;
 	}
+	public VideoVO videoSelect(String vidno) throws SQLException {
+		return dao.videoSelect(vidno);
+	}
+	
+	public List<VideoVO> videoSearch(String vidTitle,int vidCnt) throws SQLException{
+		List<VideoVO> list = dao.videoSearch(vidTitle, vidCnt);
+		
+		return list;
+	}
 	
 }

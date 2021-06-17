@@ -42,8 +42,9 @@ public class MyuserDAO {
 				String userImgOriName = rs.getString("userImgOriName");
 				String userDelFalg = rs.getString("userDelFalg");
 
-				vo = new MyuserVO(userNo, userId, userPwd, userName, userPhone, userEmail, userJoin, userSub, userImgName, userImgSize, userImgOriName, userDelFalg);
-				
+				vo = new MyuserVO(userNo, userId, userPwd, userName, userPhone, userEmail, userJoin, userSub,
+						userImgName, userImgSize, userImgOriName, userDelFalg);
+
 			}
 			System.out.println("select 결과 = " + vo + "매개변수=" + userid);
 			return vo;
@@ -80,4 +81,93 @@ public class MyuserDAO {
 			pool.dbClose(ps, conn);
 		}
 	}
+
+	public int loginProc(String userid, String userpwd) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			conn = pool.getConnection();
+			String sql = "select userpwd from myuser where userid = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, userid);
+			rs = ps.executeQuery();
+			int result = 0;
+			if (rs.next()) {
+				String pwd = rs.getString(1);
+				if (pwd.equals(userpwd)) {
+					result = MyuserService.LOGIN_OK;
+				} else {
+					result = MyuserService.PWD_DISAGREE;
+				}
+			} else {
+				result = MyuserService.ID_NONE;
+
+			}
+			System.out.println("로그인 결과=" + result + "매개변수 userid=" + userid + "매개변수 pwd=" + userpwd);
+			return result;
+
+		} finally {
+
+		}
+	}
+
+	public int userUpdate(MyuserVO vo) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		try {
+			conn = pool.getConnection();
+			String sql = "update myuser\r\n"
+					+ "set userpwd = ?, userphone= ?, useremail= ?,  userImgName= ?, userImgSize= ?, userImgOriName=?\r\n"
+					+ "where userid = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, vo.getUserPwd());
+			ps.setString(2, Integer.toString(vo.getUserPhone()));
+			ps.setString(3, vo.getUserEmail());
+			ps.setString(4, vo.getUserImgName());
+			ps.setString(5, Long.toString(vo.getUserImgSize()));
+			ps.setString(6, vo.getUserImgOriName());
+			ps.setString(7, vo.getUserId());
+
+			int cnt = ps.executeUpdate();
+			System.out.println("회원 정보 수정 결과 = " + cnt + "매개변수=" + vo);
+			return cnt;
+
+		} finally {
+			pool.dbClose(ps, conn);
+		}
+	}
+
+	public MyuserVO selectMyuserByVidNo(String vidno) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			conn = pool.getConnection();
+			String sql = "select * from myuser\r\n" + "where userno = (select userno from video where vidno = ?)";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, vidno);
+
+			MyuserVO vo = new MyuserVO();
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				String userid = rs.getString("userId");
+				int userSub = rs.getInt("userSub");
+				int userNo = rs.getInt("userNo");
+
+				vo.setUserId(userid);
+				vo.setUserSub(userSub);
+				vo.setUserNo(userNo);
+
+			}
+			System.out.println("비디오 번호로 유저 검색 결과 =" + vo + "매개변수 vidno=" + vidno);
+			return vo;
+
+		} finally {
+			pool.dbClose(rs, ps, conn);
+		}
+	}
+
 }

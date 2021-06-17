@@ -17,6 +17,10 @@ public class BoardVO {
 	private int boSort;/* 게시글 정렬 번호 */
 	private int boGroupNo; /* 게시글 그룹번호 */
 	
+	public BoardVO() {
+		super();
+	}
+	
 	public BoardVO(int boNo, String boTitle, String boCon, int boHits, int boCom, Timestamp boDate, int boSec,
 			int userNo, int userNo2, int boMyNo, int boStep, int boSort, int boGroupNo) {
 		super();
