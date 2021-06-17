@@ -1,0 +1,30 @@
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			conn = pool.getConnection();
+			
+			String sql = "";
+			ps=conn.prepareStatement(sql);
+			
+		
+		}finally {
+			pool.dbClose(ps, conn);
+		}
+
+
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = pool.getConnection();
+			
+			String sql = "";
+			ps=conn.prepareStatement(sql);
+			
+		
+		}finally {
+			pool.dbClose(rs, ps, conn);
+		}
