@@ -8,9 +8,8 @@
 <%
 	String vidComCnt = request.getParameter("vidComCnt");
 	String vidNo = request.getParameter("vidNo");
-	String vidGroup = request.getParameter("vidGroup");
 	VidCommentService sv = new VidCommentService();
-	List<VidCommentVO> list = sv.sellectComment(Integer.parseInt(vidNo), Integer.parseInt(vidComCnt), Integer.parseInt(vidGroup));
+	List<VidCommentVO> list = sv.sellectComment(Integer.parseInt(vidNo), Integer.parseInt(vidComCnt), 0);
 	MyuserService msv = new MyuserService();
 
 %>{ 
@@ -22,7 +21,7 @@
 		MyuserVO mvo = msv.selectMyuserByVidNo(userno);
 	%>
 	
-	{"comUserNo" : "<%=vo.getUserNo() %>", "comNo" : "<%=vo.getComNo() %>", "comId" : "<%=mvo.getUserId() %>", "comCon" : "<%=vo.getComCon() %>", "comLike" : "<%=vo.getComLike() %>", "comRe" : "<%=vo.getComRe() %>"}<%if(i<list.size()-1){ %>,<%} %> 
+	{"comNo" : "<%=vo.getComNo() %>", "comId" : "<%=mvo.getUserId() %>", "comCon" : "<%=vo.getComCon() %>", "comLike" : "<%=vo.getComLike() %>", "comRe" : "<%=vo.getComRe() %>"}<%if(i<list.size()-1){ %>,<%} %> 
 		
 	<%}
 %>],"comListSize":<%=list.size()%> }<%

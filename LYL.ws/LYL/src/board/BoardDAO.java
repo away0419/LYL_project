@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.ConnectionPoolMgr2;
-import oracle.jdbc.OracleResultSet;
 
 public class BoardDAO {
 	private ConnectionPoolMgr2 pool;
@@ -27,7 +26,7 @@ public class BoardDAO {
 		try {
 			conn=pool.getConnection();
 			
-			String sql="select * from myboard order by bomyno desc";
+			String sql="select * from myboard order by boNo desc";
 			ps=conn.prepareStatement(sql);
 			
 			rs=ps.executeQuery();
@@ -38,15 +37,14 @@ public class BoardDAO {
 				int boHits=rs.getInt("boHits");
 				int boCom=rs.getInt("boCom");
 				Timestamp boDate=rs.getTimestamp("boDate");
-				int boSec=rs.getInt("boSec");
+				int boPwd=rs.getInt("boPwd");
 				int userNo=rs.getInt("userNo");
-				int userNo2=rs.getInt("userNo2");
-				int boMyNo=rs.getInt("boMyNo");
+				String userId=rs.getString("userId");
 				int boStep=rs.getInt("boStep");
 				int boSort=rs.getInt("boSort");
 				int boGroupNo=rs.getInt("boGroupNo");
 				
-				BoardVO vo = new BoardVO(boNo, boTitle, boCon, boHits, boCom, boDate, boSec, userNo, userNo2, boMyNo, boStep, boSort, boGroupNo);
+				BoardVO vo = new BoardVO(boNo, boTitle, boCon, boHits, boCom, boDate, boPwd, userNo, userId, boStep, boSort, boGroupNo);
 				list.add(vo);
 			}
 			
@@ -60,23 +58,21 @@ public class BoardDAO {
 	public int insertBoard(BoardVO vo) throws SQLException {
 		Connection conn=null;
 		PreparedStatement ps=null;
-		OracleResultSet ors=null;
 
 		try {
 			//1,2 conn
 			conn=pool.getConnection();
-			System.out.println(vo.getBoCon());
-			System.out.println(vo.getBoTitle());
-			System.out.println(vo.getUserNo());
-			System.out.println(vo.getUserNo2());
 			//3 ps
-			String sql="insert into myboard(bono, botitle, bocon, bodate, userno, userno2)"  //sql문 수정해야함 - 비밀글 여부추가, 답글은 일단X
-					+ " values(myboard_seq.nextval, ?, ?, default, ?, ?);";
+			//insert into myboard(boNo, boTitle, boCon, boPwd, boDate, boHits, boCom, boStep, boSort, boGroupno, UserId, userNo)
+			//values(myboard_seq.nextval, '제목입니다', '내용입니다.', '0', default, default, default, default, default,1 ,'yooh' ,1)
+			String sql="insert into myboard(boNo, boTitle, boCon, boPwd, boDate, boHits, boCom, boStep, boSort, boGroupno, UserId, userNo)"
+					+ "values(myboard_seq.nextval, ?, ?, ?, default, default, default, default, default,1 ,? ,?)";
 			ps=conn.prepareStatement(sql);
 			ps.setString(1, vo.getBoTitle());
 			ps.setString(2, vo.getBoCon());
-			ps.setInt(3, vo.getUserNo());
-			ps.setInt(4, vo.getUserNo2());
+			ps.setInt(3, vo.getBoPwd());
+			ps.setString(4, vo.getUserId());
+			ps.setInt(5, vo.getUserNo());
 			
 			//4 exec
 			int cnt=ps.executeUpdate();
@@ -106,6 +102,7 @@ public class BoardDAO {
 			 vo.setBoNo(boNo);
 			 vo.setBoCon(rs.getString("boCon"));
 			 vo.setBoTitle(rs.getString("boTitle"));
+			 vo.setUserId(rs.getString("userId"));
 			 vo.setBoDate(rs.getTimestamp("boDate"));
 		 }
 		 System.out.println("글상세조회 결과, vo="+vo+", 매개변수 no="+boNo);
@@ -115,7 +112,7 @@ public class BoardDAO {
 		}
 	}
 	
-	public int updateReadCount(int no) throws SQLException {
+	public int updateReadCount(int boNo) throws SQLException {
 		Connection conn=null;
 		PreparedStatement ps=null;
 
@@ -124,12 +121,12 @@ public class BoardDAO {
 
 			String sql="update myboard"
 					+ " set boHits=boHits+1"
-					+ " where no=?";
+					+ " where boNo=?";
 			ps=conn.prepareStatement(sql);
-			ps.setInt(1, no);
+			ps.setInt(1, boNo);
 
 			int cnt=ps.executeUpdate();
-			System.out.println("조회수 증가 결과 cnt="+cnt+", 매개변수 no="+no);
+			System.out.println("조회수 증가 결과 cnt="+cnt+", 매개변수 boNo="+boNo);
 
 			return cnt;
 		}finally {
@@ -156,5 +153,32 @@ public class BoardDAO {
 		} finally {
 			pool.dbClose(ps, conn);
 		}
+	}
+	
+	//작업
+	public int editBoard(BoardVO vo) throws SQLException {
+		Connection conn=null;
+		PreparedStatement ps=null;
+		
+		try {
+			conn=pool.getConnection();
+			
+			String sql="update myboard"
+					+ " set boTitle=?, boCon=?"
+					+ " where boNo=? and userId like '%' || ? || '%'";
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, vo.getBoTitle());
+			ps.setString(2, vo.getBoCon());
+			ps.setInt(3, vo.getBoNo());
+			ps.setString(4, vo.getUserId());
+			
+			int cnt=ps.executeUpdate();
+			System.out.println("======글수정 결과 cnt="+cnt+", 매개변수 vo="+vo);
+			
+			return cnt;
+		} finally {
+			pool.dbClose(ps, conn);
+		}
+		
 	}
 }

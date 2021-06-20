@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class VideoVO {
 	private int vidNo;
 	private String vidTitle; /* ���� */
-	private int vidHits; /* ��ȸ�� */
+	private long vidHits; /* ��ȸ�� */
 	private int vidCom; /* ��� */
 	private String vidurl; /* ������ */
 	private int vidLike; /* ���ƿ� */
@@ -18,7 +18,7 @@ public class VideoVO {
 	public VideoVO() {
 	}
 
-	public VideoVO(int vidNo, String vidTitle, int vidHits, int vidCom, String vidurl, int vidLike, Timestamp vidDate,
+	public VideoVO(int vidNo, String vidTitle, long vidHits, int vidCom, String vidurl, int vidLike, Timestamp vidDate,
 			String vidEx, int vidTheme, int userNo, String vidThu) {
 		super();
 		this.vidNo = vidNo;
@@ -50,11 +50,11 @@ public class VideoVO {
 		this.vidTitle = vidTitle;
 	}
 
-	public int getVidHits() {
+	public long getVidHits() {
 		return vidHits;
 	}
 
-	public void setVidHits(int vidHits) {
+	public void setVidHits(long vidHits) {
 		this.vidHits = vidHits;
 	}
 

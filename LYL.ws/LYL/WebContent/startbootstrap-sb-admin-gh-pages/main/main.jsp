@@ -7,8 +7,34 @@
 <%@page import="video.VideoService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-<link href="../css/videoStyles.css" rel="stylesheet">
 <%@ include file="/startbootstrap-sb-admin-gh-pages/inc/top.jsp"%>
+<link href="../css/videoStyles.css" rel="stylesheet">
+<%
+	VideoService vvs = new VideoService();
+	int vidCnt = vvs.vidAllCnt();
+	int[] vidRandom = new int[3];
+	String[] vidUrl = new String[3];
+	String[] vidWatch = new String[3];
+	VideoVO[] voRandom = new VideoVO[3];
+	
+	for(int i=0; i<3; i++){
+		vidRandom[i] = (int)(Math.random()*vidCnt)+1;
+		for(int j=0; j<i; j++){
+			if(vidRandom[i]==vidRandom[j]){
+				i--;
+				continue;
+			}
+		}
+		String snum= String.valueOf(vidRandom[i]);
+		voRandom[i] = vvs.videoSelect(snum);
+		if(voRandom[i].getVidurl().startsWith("http"))
+			vidUrl[i] = voRandom[i].getVidurl()+"?autoplay=1&mute=1";
+		else
+			vidUrl[i] = voRandom[i].getVidurl();
+		
+		vidWatch[i] = "../videoBundle/videoWatch.jsp?vidNo="+voRandom[i].getVidNo();
+	}
+%>
 <script>
    var scThNum =1;
    
@@ -48,8 +74,8 @@
               					
           	    				var scVidImg='<img class="main_Thumbnail" src="'+vidList[i].vidImg+'">';
           	    		    	var scVidTitle='<p class="video_tilte">'+vidList[i].vidTitle+'</p>';
-          	    		    	var scVidUserId='<p class="video_uploaderid">'+vidList[i].vidUserNo+'</p>';
-          	    		    	var scVidHits='<p class="video_hits">조회수'+vidList[i].vidHits+'</p>';
+          	    		    	var scVidUserId='<p class="video_uploaderid">'+vidList[i].vidUserId+'</p>';
+          	    		    	var scVidHits='<p class="video_hits">조회수 '+vidList[i].vidHits+'</p>';
           	    				var scVidNo=vidList[i].vidNo;
           	    				
           	    				$('.video_main_list').last().append('<a class="awatch" href="../videoBundle/videoWatch.jsp?vidNo='+scVidNo+'">');
@@ -86,34 +112,39 @@
       <div class="carousel-inner">
          <div class="carousel-item active">
             <iframe
-               src="https://www.youtube.com/embed/4TWR90KJl84?autoplay=1&mute=1"
+               src=<%=vidUrl[0] %>
                frameborder="0"
                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+            <a href=<%=vidWatch[0]%>>
             <div id="fe" class="carousel-caption d-none d-md-block">
-               <h5>First slide label</h5>
-               <p>Some representative placeholder content for the first slide.</p>
+               <h5>좋아요 : <%=voRandom[0].getVidLike()%></h5>
+               <p><%=voRandom[0].getVidEx()%></p>
             </div>
+            </a>
          </div>
          <div class="carousel-item">
             <iframe
-               src="https://www.youtube.com/embed/b6li05zh3Kg?autoplay=1&mute=1"
+               src=<%=vidUrl[1] %>
                frameborder="0"
                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+             <a href=<%=vidWatch[1]%>>
             <div id="fe" class="carousel-caption d-none d-md-block">
-               <h5>Second slide label</h5>
-               <p>Some representative placeholder content for the second
-                  slide.</p>
+               <h5>좋아요 : <%=voRandom[1].getVidLike()%></h5>
+               <p><%=voRandom[1].getVidEx()%></p>
             </div>
+            </a>
          </div>
          <div class="carousel-item">
             <iframe
-               src="https://www.youtube.com/embed/CBt9ieHMtas?autoplay=1&mute=1"
+               src=<%=vidUrl[2] %>
                frameborder="0"
                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+             <a href=<%=vidWatch[2]%>>
             <div id="fe" class="carousel-caption d-none d-md-block">
-               <h5>Third slide label</h5>
-               <p>Some representative placeholder content for the third slide.</p>
+               <h5>좋아요 : <%=voRandom[2].getVidLike()%></h5>
+               <p><%=voRandom[2].getVidEx()%></p>
             </div>
+            </a>
          </div>
       </div>
       <button class="carousel-control-prev" type="button"
@@ -128,10 +159,11 @@
       </button>
    </div>
 
-   <iframe id="player" width="640" height="360"
+   <iframe id="player" width="630" height="360"
       src="https://www.youtube.com/embed/4TWR90KJl84"></iframe>
+   <video src="https://www.youtube.com/embed/4TWR90KJl84"></video>
    
    
    
    
-   <%@ include file="/../startbootstrap-sb-admin-gh-pages/inc/bottom.jsp" %>
+<%@ include file="/../startbootstrap-sb-admin-gh-pages/inc/bottom.jsp" %>

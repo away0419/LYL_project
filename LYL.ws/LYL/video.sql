@@ -442,55 +442,98 @@ insert into theme values(theme_seq.nextval,'스포츠');
 
 --비디오 정보--
 --게임 no 1--
-insert into video values(video_seq.nextval,'2021년PC온라인게임순위 전세계TOP10',1000,default,'https://www.youtube.com/embed/XDB-ew_nFjo',default,default,'2021년 PC 온라인게임순위 (1월통합)',1,1,'http://img.youtube.com/vi/XDB-ew_nFjo/maxresdefault.jpg');
+insert into video values(video_seq.nextval,'2021년PC온라인게임순위 전세계TOP10',1000,14,'https://www.youtube.com/embed/XDB-ew_nFjo',default,default,'2021년 PC 온라인게임순위 (1월통합)',1,1,'http://img.youtube.com/vi/XDB-ew_nFjo/maxresdefault.jpg');
 insert into video values(video_seq.nextval,'게임판 사고사례는 게임보다 더 황당하다 [2021 2분기 이왜진 게임뉴스]',99999,default,'https://www.youtube.com/embed/0eiDYPxnt4c',default,default,'30년차 테트리스 고인물 / BTS마저 찌바르는 겜덕력 / 추신수 빠른무한 / 일본 국민게임에서 일본 때려잡는 한국인 / 삼탈워 참수 사태 등',1,1,'http://img.youtube.com/vi/0eiDYPxnt4c/maxresdefault.jpg');
 insert into video values(video_seq.nextval,'뉴욕에 또다시 퍼진 바이러스, 알렉스 머서는 죽어야만 한다 - 프로토타입 2 스토리 한눈에 보기',100000,default,'https://www.youtube.com/embed/12280TgSiwU',default,default,'※ 게임 구매',1,1,'http://img.youtube.com/vi/12280TgSiwU/maxresdefault.jpg');
-insert into video values(video_seq.nextval,'영상 제목',default,default,'video/lala.mp4',1000000,default,'내용',1,1,'../thumbnail/lala.png');
+insert into video values(video_seq.nextval,'영상 제목',4863215,default,'../video/alal.mp4',1000000,default,'내용',1,1,'../thumbnail/lala.png');
 
 --영화 no 2--
-insert into video values(video_seq.nextval,'정말... 이 영화가 개봉한다고...?',default,default,'https://www.youtube.com/embed/R7HGsxi47l8',default,default,'*본 영상은 유료광고를 포함하고 있습니다.',2,1,'http://img.youtube.com/vi/R7HGsxi47l8/maxresdefault.jpg');
-insert into video values(video_seq.nextval,'10,000명 몽골 대군을 막아낸 산골 마을 사냥꾼의 전설 [영화리뷰 결말포함]',default,default,'https://www.youtube.com/embed/aH9BWyAP2JI',default,default,'[ 라이징 호크, 2019 ]',2,1,'http://img.youtube.com/vi/aH9BWyAP2JI/maxresdefault.jpg');
-insert into video values(video_seq.nextval,'이 여자를 위협하면 어마무시한 일이 벌어집니다... (결말 포함)',default,default,'https://youtu.be/RNbJTDSgTLY',default,default,'틀딱이 소개하는 영화리뷰 시작합니다.',2,1,'http://img.youtube.com/vi/RNbJTDSgTLY/maxresdefault.jpg');
-insert into video values(video_seq.nextval,'영화 속 ''조정석'' 웃긴장면 모음 ZIP',default,default,'https://www.youtube.com/embed/j5jbymJVGT4',default,default,'영화는 [엑시트], [건축학개론], [형]입니다. 안녕하세요 ''영화에미치다'' 매드무비입니다.',2,1,'http://img.youtube.com/vi/j5jbymJVGT4/maxresdefault.jpg');
+insert into video values(video_seq.nextval,'정말... 이 영화가 개봉한다고...?',8888,default,'https://www.youtube.com/embed/R7HGsxi47l8',default,default,'*본 영상은 유료광고를 포함하고 있습니다.',2,1,'http://img.youtube.com/vi/R7HGsxi47l8/maxresdefault.jpg');
+insert into video values(video_seq.nextval,'10,000명 몽골 대군을 막아낸 산골 마을 사냥꾼의 전설 [영화리뷰 결말포함]',666666,default,'https://www.youtube.com/embed/aH9BWyAP2JI',default,default,'[ 라이징 호크, 2019 ]',2,1,'http://img.youtube.com/vi/aH9BWyAP2JI/maxresdefault.jpg');
+insert into video values(video_seq.nextval,'이 여자를 위협하면 어마무시한 일이 벌어집니다... (결말 포함)',333333,default,'https://www.youtube.com/embed/RNbJTDSgTLY',default,default,'틀딱이 소개하는 영화리뷰 시작합니다.',2,1,'http://img.youtube.com/vi/RNbJTDSgTLY/maxresdefault.jpg');
+insert into video values(video_seq.nextval,'영화 속 ''조정석'' 웃긴장면 모음 ZIP',99999999,default,'https://www.youtube.com/embed/j5jbymJVGT4',default,default,'영화는 [엑시트], [건축학개론], [형]입니다. 안녕하세요 ''영화에미치다'' 매드무비입니다.',2,1,'http://img.youtube.com/vi/j5jbymJVGT4/maxresdefault.jpg');
 
 
 --학습 no 3 --
-insert into video values(video_seq.nextval, '아인슈타인이 받았던 공부', default,default,'https://youtu.be/embed/hcymislezjI', default, default, '무언가를 배우고자 할 때 이 공부를 왜 해야 하는가 ', 3, 1,'http://img.youtube.com/vi/hcymislezjI/maxresdefault.jpg');
-insert into video values(video_seq.nextval, '이 계획대로 공부하면 반드시 성공합니다. (학습 계획표)', default,default,'https://youtu.be/embed/KQYJ_0yr-1Q', default, default, '공부가 어려우신가요? 이 계획대로라면 반드시 성공합니다! 계획표도 받아가세요', 3, 1,'http://img.youtube.com/vi/KQYJ_0yr-1Q/maxresdefault.jpg');
-insert into video values(video_seq.nextval, '서울대 수석의 스터디 플래너. [학습 계획법 + 공부 집중력] 한꺼번에 2가지.', default,default,'https://youtu.be/embed/o2-rsPs47Zw', default, default, '수험생의 최대 고민인 계획 세우는 법, 집중 잘하는 법.', 3, 1,'http://img.youtube.com/vi/o2-rsPs47Zw/maxresdefault.jpg');
-insert into video values(video_seq.nextval, '초등학생 자기주도학습 지도하는 10가지 방법 + 미쉘 교육철학', default,default,'https://youtu.be/embed/wxdmIjLMPJM', default, default, '아침형 인간인 저희 아이가 주도적으로 스스로 학습을 할 수 있게 ', 3, 1,'http://img.youtube.com/vi/wxdmIjLMPJM/maxresdefault.jpg');
-insert into video values(video_seq.nextval, '자기주도학습은 중요합니다. 그러나 왜곡되어 있습니다. | 자기주도학습의 정확한 방법', default,default,'https://youtu.be/embed/qIUDyLBAOdg', default, default, '모두가 중요하다고 하는 자기주도학습 ', 3, 1,'http://img.youtube.com/vi/qIUDyLBAOdg/maxresdefault.jpg');
-insert into video values(video_seq.nextval, '공부하는 힘, 몰입 | 황농문 서울대학교 재료공학부 교수 | 공부 학습 시험 강연', default,default,'https://youtu.be/embed/ukjYwSiYT1I', default, default, '? 강연 소개 : 도전이 아무리 어렵다고 해도, 내가 ', 3, 1,'http://img.youtube.com/vi/ukjYwSiYT1I/maxresdefault.jpg');
-insert into video values(video_seq.nextval, '[동기부여,공부자극] 공부의지는 어디서 오는가?', default,default,'https://youtu.be/embed/3XvGdiE_RlI', default, default, '나는 왜 ''공부의지''가 좀처럼 생기지 않을까요? ', 3, 1,'http://img.youtube.com/vi/3XvGdiE_RlI/maxresdefault.jpg');
-insert into video values(video_seq.nextval, '서울대3121명이 공통적으로 쓰는 공부법을 공개합니다', default,default,'https://youtu.be/sacbcLnZt8w', default, default, '서울대3121명이 공통적으로 쓰는 공부법을 공개합니다. ', 3, 1,'http://img.youtube.com/vi/sacbcLnZt8w/maxresdefault.jpg');
+insert into video values(video_seq.nextval, '아인슈타인이 받았던 공부', 8888888,default,'https://www.youtube.com/embed/hcymislezjI', default, default, '무언가를 배우고자 할 때 이 공부를 왜 해야 하는가 ', 3, 1,'http://img.youtube.com/vi/hcymislezjI/maxresdefault.jpg');
+insert into video values(video_seq.nextval, '이 계획대로 공부하면 반드시 성공합니다. (학습 계획표)', 123132132,default,'https://www.youtube.com/embed/KQYJ_0yr-1Q', default, default, '공부가 어려우신가요? 이 계획대로라면 반드시 성공합니다! 계획표도 받아가세요', 3, 1,'http://img.youtube.com/vi/KQYJ_0yr-1Q/maxresdefault.jpg');
+insert into video values(video_seq.nextval, '서울대 수석의 스터디 플래너. [학습 계획법 + 공부 집중력] 한꺼번에 2가지.', 456454,default,'https://www.youtube.com/embed/o2-rsPs47Zw', default, default, '수험생의 최대 고민인 계획 세우는 법, 집중 잘하는 법.', 3, 1,'http://img.youtube.com/vi/o2-rsPs47Zw/maxresdefault.jpg');
+insert into video values(video_seq.nextval, '초등학생 자기주도학습 지도하는 10가지 방법 + 미쉘 교육철학', 8188181,default,'https://www.youtube.com/embed/wxdmIjLMPJM', default, default, '아침형 인간인 저희 아이가 주도적으로 스스로 학습을 할 수 있게 ', 3, 1,'http://img.youtube.com/vi/wxdmIjLMPJM/maxresdefault.jpg');
+insert into video values(video_seq.nextval, '자기주도학습은 중요합니다. 그러나 왜곡되어 있습니다. | 자기주도학습의 정확한 방법', 354354,default,'https://www.youtube.com/embed/qIUDyLBAOdg', default, default, '모두가 중요하다고 하는 자기주도학습 ', 3, 1,'http://img.youtube.com/vi/qIUDyLBAOdg/maxresdefault.jpg');
+insert into video values(video_seq.nextval, '공부하는 힘, 몰입 | 황농문 서울대학교 재료공학부 교수 | 공부 학습 시험 강연', 123,default,'https://www.youtube.com/embed/ukjYwSiYT1I', default, default, '? 강연 소개 : 도전이 아무리 어렵다고 해도, 내가 ', 3, 1,'http://img.youtube.com/vi/ukjYwSiYT1I/maxresdefault.jpg');
+insert into video values(video_seq.nextval, '[동기부여,공부자극] 공부의지는 어디서 오는가?', 4545454,default,'https://www.youtube.com/embed/3XvGdiE_RlI', default, default, '나는 왜 ''공부의지''가 좀처럼 생기지 않을까요? ', 3, 1,'http://img.youtube.com/vi/3XvGdiE_RlI/maxresdefault.jpg');
+insert into video values(video_seq.nextval, '서울대3121명이 공통적으로 쓰는 공부법을 공개합니다', 98498,default,'https://www.youtube.com/embed/sacbcLnZt8w', default, default, '서울대3121명이 공통적으로 쓰는 공부법을 공개합니다. ', 3, 1,'http://img.youtube.com/vi/sacbcLnZt8w/maxresdefault.jpg');
 
 --스포츠 no 4--
-insert into video values(video_seq.nextval, '스포츠 역사상 가장 말도 안되는 30가지 순간', default,default,'https://youtu.be/embed/kRbC5CJeXec', default, default, '이건 새로 나온 피파 게임의 버그가 아닙니다, 눈으로 직접 봐야지만 믿을 수 있는 스포츠', 4, 1,'http://img.youtube.com/vi/kRbC5CJeXec/maxresdefault.jpg');
-insert into video values(video_seq.nextval, '2020년, 그럼에도 우리가 스포츠를 사랑하는 이유', default,default,'https://youtu.be/embed/aJzltMZQ2IA', default, default, '2020년을 지내온 모든 분들, 수고하셨습니다.', 4, 1,'http://img.youtube.com/vi/aJzltMZQ2IA/maxresdefault.jpg');
-insert into video values(video_seq.nextval, '프로 선수도 피해갈수 없는 실수들 - 스포츠 실패 모음', default,default,'https://youtu.be/embed/A3P4c5mwgtA', default, default, '원숭이도 나무에서 떨어질 때가 있다', 4, 1,'http://img.youtube.com/vi/A3P4c5mwgtA/maxresdefault.jpg');
-insert into video values(video_seq.nextval, '[스포츠실험실] ''세팍타크로vs족구''가 붙으면 이런 모습입니다', default,default,'https://youtu.be/embed/Fm1GRdXS17k', default, default, '스포츠 실험실 2탄!', 4, 1,'http://img.youtube.com/vi/Fm1GRdXS17k/maxresdefault.jpg');
-insert into video values(video_seq.nextval, '세계에서 가장 위험한 스포츠 기네스 TOP9', default,default,'https://youtu.be/embed/RAMmLllvZlo', default, default, '400만뷰가 넘었던 이 영상이 사고장면이 혐오스럽다는', 4, 1,'http://img.youtube.com/vi/RAMmLllvZlo/maxresdefault.jpg');
-insert into video values(video_seq.nextval, '스포츠 선수를 울게 만든 순간들', default,default,'https://youtu.be/embed/G1mGhvG3bbw', default, default, '강인한 스포츠 선수들을 울게 만들었던 슬프고 아픈 순간들', 4, 1,'http://img.youtube.com/vi/G1mGhvG3bbw/maxresdefault.jpg');
-insert into video values(video_seq.nextval, '의도치 않게 발생한 놀라운 스포츠 순간들', default,default,'https://youtu.be/embed/rMPTkPlFhwo', default, default, '스포츠 선수들도 놀란 순간들', 4, 1,'http://img.youtube.com/vi/rMPTkPlFhwo/maxresdefault.jpg');
-insert into video values(video_seq.nextval, '믿기지 않는 스포츠 선수들의 괴력', default,default,'https://youtu.be/embed/Eaad-9jEfdo', default, default, '스포츠 선수가 자신의 한계를 넘어설 때', 4, 1,'http://img.youtube.com/vi/Eaad-9jEfdo/maxresdefault.jpg');
+insert into video values(video_seq.nextval, '스포츠 역사상 가장 말도 안되는 30가지 순간', 34543,default,'https://www.youtube.com/embed/kRbC5CJeXec', default, default, '이건 새로 나온 피파 게임의 버그가 아닙니다, 눈으로 직접 봐야지만 믿을 수 있는 스포츠', 4, 1,'http://img.youtube.com/vi/kRbC5CJeXec/maxresdefault.jpg');
+insert into video values(video_seq.nextval, '2020년, 그럼에도 우리가 스포츠를 사랑하는 이유', 818181,default,'https://www.youtube.com/embed/aJzltMZQ2IA', default, default, '2020년을 지내온 모든 분들, 수고하셨습니다.', 4, 1,'http://img.youtube.com/vi/aJzltMZQ2IA/maxresdefault.jpg');
+insert into video values(video_seq.nextval, '프로 선수도 피해갈수 없는 실수들 - 스포츠 실패 모음', 879898,default,'https://www.youtube.com/embed/A3P4c5mwgtA', default, default, '원숭이도 나무에서 떨어질 때가 있다', 4, 1,'http://img.youtube.com/vi/A3P4c5mwgtA/maxresdefault.jpg');
+insert into video values(video_seq.nextval, '[스포츠실험실] ''세팍타크로vs족구''가 붙으면 이런 모습입니다', 456465,default,'https://www.youtube.com/embed/Fm1GRdXS17k', default, default, '스포츠 실험실 2탄!', 4, 1,'http://img.youtube.com/vi/Fm1GRdXS17k/maxresdefault.jpg');
+insert into video values(video_seq.nextval, '세계에서 가장 위험한 스포츠 기네스 TOP9', 1561651,default,'https://www.youtube.com/embed/RAMmLllvZlo', default, default, '400만뷰가 넘었던 이 영상이 사고장면이 혐오스럽다는', 4, 1,'http://img.youtube.com/vi/RAMmLllvZlo/maxresdefault.jpg');
+insert into video values(video_seq.nextval, '스포츠 선수를 울게 만든 순간들', 98498,default,'https://www.youtube.com/embed/G1mGhvG3bbw', default, default, '강인한 스포츠 선수들을 울게 만들었던 슬프고 아픈 순간들', 4, 1,'http://img.youtube.com/vi/G1mGhvG3bbw/maxresdefault.jpg');
+insert into video values(video_seq.nextval, '의도치 않게 발생한 놀라운 스포츠 순간들', 7897987,default,'https://www.youtube.com/embed/rMPTkPlFhwo', default, default, '스포츠 선수들도 놀란 순간들', 4, 1,'http://img.youtube.com/vi/rMPTkPlFhwo/maxresdefault.jpg');
+insert into video values(video_seq.nextval, '믿기지 않는 스포츠 선수들의 괴력', 35473,default,'https://www.youtube.com/embed/Eaad-9jEfdo', default, default, '스포츠 선수가 자신의 한계를 넘어설 때', 4, 1,'http://img.youtube.com/vi/Eaad-9jEfdo/maxresdefault.jpg');
 
 --비디오 정보--
 
 --댓글 정보--
-insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다1',default,default,default,default,1,1,default,default,null);
-insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다2',default,default,default,default,1,1,default,default,null);
-insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다3',default,default,default,default,1,1,default,default,null);
-insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다4',default,default,default,default,1,1,default,default,null);
-insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다5',default,default,default,default,1,1,default,default,null);
-insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다6',default,default,default,default,1,1,default,default,null);
-insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다7',default,default,default,default,1,1,default,default,null);
-insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다8',default,default,default,default,1,1,default,default,null);
-insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다9',default,default,default,default,1,1,default,default,null);
-insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다10',default,default,default,default,1,1,default,default,null);
-insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다11',default,default,default,default,1,1,default,default,null);
-insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다12',default,default,default,default,1,1,default,default,null);
-insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다13',default,default,default,default,1,1,default,default,null);
-insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다14',default,default,default,default,1,1,default,default,null);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다1',default,3,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다2',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다3',default,22,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다4',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다5',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다6',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다7',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다8',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다9',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다10',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다11',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다12',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다13',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다14',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다15',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다16',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다17',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다18',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다19',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다20',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다21',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다22',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다23',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다24',default,default,default,default,1,1,default,default,0);
+insert into mycomment values(mycomment_seq.nextval,'댓글내용입니다25',default,default,default,default,1,1,default,default,0);
+
+
+--답글
+insert into mycomment values(mycomment_seq.nextval,'1답글내용입니다1',default,default,default,default,1,1,1,default,1);
+insert into mycomment values(mycomment_seq.nextval,'1답글내용입니다1',default,default,default,default,1,1,1,default,1);
+insert into mycomment values(mycomment_seq.nextval,'1답글내용입니다1',default,default,default,default,1,1,1,default,1);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다1',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다2',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다3',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다4',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다5',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다6',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다7',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다8',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다9',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다10',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다11',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다12',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다13',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다14',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다15',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다16',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다17',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다18',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다19',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다20',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다21',default,default,default,default,1,1,1,default,3);
+insert into mycomment values(mycomment_seq.nextval,'답글내용입니다22',default,default,default,default,1,1,1,default,3);
+
+
+
+
 --댓글 정보
 
 
@@ -500,15 +543,25 @@ commit;
 --테이블 확인
 --select * from myuser;
 --select * from myboard;
---select * from mycomment;
+--select * from mycomment order by comno;
 --select * from bobycom;
 --select * from video;   
 --select * from theme;
 --select * from mycomment;
 --select * from (select ROWNUM as rowcnt, a.* from mycomment a where vidno=1 and comgroup is null)
 --where rowcnt>=10 and rowcnt<20;
+--select * from AFTERVIDEO;
+--select * from WATCHRECORD;
+--select * from SUBSCRIB;
+--
+--insert into SUBSCRIB(userNo2, userNo) values(1, 2);
 
 --select * from 
 --(select  ad.*, rownum as rowcnt from 
 --(select * from video where vidtitle like '%'||'게임'||'%' order by vidhits desc)ad)
 -- where rowcnt>=0 and rowcnt<10;
+
+--select * from
+--(select rownum as rowcnt, ad.* from
+--(select * from mycomment where vidno=1 and comstep=0 order by comno)ad)
+--where rowcnt>=0 and rowcnt<10

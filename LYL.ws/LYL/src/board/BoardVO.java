@@ -3,26 +3,25 @@ package board;
 import java.sql.Timestamp;
 
 public class BoardVO {
-	private int boNo; /* 번호 */
+	private int boNo; /* 게시판번호 */
 	private String boTitle; /* 제목 */
 	private String boCon; /* 내용 */
-	private int boHits;  /* 조회수 */
+	private int boHits; /* 조회수 */
 	private int boCom; /* 댓글수 */
 	private Timestamp boDate; /* 작성일 */
-	private int boSec; /* 비밀글 여부 */
+	private int boPwd; /* 비밀번호 */
 	private int userNo; /* 크리에이터 */
-	private int userNo2; /* 글쓴이 */
-	private int boMyNo; /* 마이페이지별 글번호 */
+	private String userId; /* 글쓴이 */
 	private int boStep; /* 게시글 단계 */
-	private int boSort;/* 게시글 정렬 번호 */
+	private int boSort; /* 게시글 정렬 번호 */
 	private int boGroupNo; /* 게시글 그룹번호 */
 	
 	public BoardVO() {
 		super();
 	}
-	
-	public BoardVO(int boNo, String boTitle, String boCon, int boHits, int boCom, Timestamp boDate, int boSec,
-			int userNo, int userNo2, int boMyNo, int boStep, int boSort, int boGroupNo) {
+
+	public BoardVO(int boNo, String boTitle, String boCon, int boHits, int boCom, Timestamp boDate, int boPwd,
+			int userNo, String userId, int boStep, int boSort, int boGroupNo) {
 		super();
 		this.boNo = boNo;
 		this.boTitle = boTitle;
@@ -30,14 +29,14 @@ public class BoardVO {
 		this.boHits = boHits;
 		this.boCom = boCom;
 		this.boDate = boDate;
-		this.boSec = boSec;
+		this.boPwd = boPwd;
 		this.userNo = userNo;
-		this.userNo2 = userNo2;
-		this.boMyNo = boMyNo;
+		this.userId = userId;
 		this.boStep = boStep;
 		this.boSort = boSort;
 		this.boGroupNo = boGroupNo;
 	}
+
 
 	public int getBoNo() {
 		return boNo;
@@ -87,12 +86,12 @@ public class BoardVO {
 		this.boDate = boDate;
 	}
 
-	public int getBoSec() {
-		return boSec;
+	public int getBoPwd() {
+		return boPwd;
 	}
 
-	public void setBoSec(int boSec) {
-		this.boSec = boSec;
+	public void setBoPwd(int boPwd) {
+		this.boPwd = boPwd;
 	}
 
 	public int getUserNo() {
@@ -103,20 +102,12 @@ public class BoardVO {
 		this.userNo = userNo;
 	}
 
-	public int getUserNo2() {
-		return userNo2;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUserNo2(int userNo2) {
-		this.userNo2 = userNo2;
-	}
-
-	public int getBoMyNo() {
-		return boMyNo;
-	}
-
-	public void setBoMyNo(int boMyNo) {
-		this.boMyNo = boMyNo;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public int getBoStep() {

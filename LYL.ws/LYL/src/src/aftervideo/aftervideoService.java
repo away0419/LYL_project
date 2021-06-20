@@ -12,5 +12,10 @@ public class aftervideoService {
 	public int aftervideo(String videoNo, String userNo) throws SQLException {
 		return dao.insertAftervideo(videoNo, userNo);
 	}
-	
+	public int deleteAftervideo(String videoNo, String userNo) throws SQLException {
+		return dao.deleteAftervideo(videoNo, userNo);
+	}
+	public int selectAftervideo(String videoNo, String userNo) throws SQLException {
+		return dao.selectAftervideo(videoNo, userNo);
+	}
 }

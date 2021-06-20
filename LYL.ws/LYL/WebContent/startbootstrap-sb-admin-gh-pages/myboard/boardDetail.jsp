@@ -1,3 +1,7 @@
+<%@page import="java.util.List"%>
+<%@page import="bocomment.BoCommentVO"%>
+<%@page import="bocomment.BoCommentDAO"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="board.BoardVO"%>
 <%@page import="board.BoardDAO"%>
@@ -32,43 +36,42 @@
 		margin: 20px auto;
 	}
 	.titleLabel{
-		margin: 5px 30px;
+		margin-top: 5px;
+		font-weight: bold;
+		margin-left: 50px;
 		float: left;
 	}
+	#title{
+		border: none;
+	}
 	.title{
-		margin: 10px 90px;
+		margin: 10px auto;
+		padding: 7px;
 		width: 700px;
 		height:40px;
 		background: white;
 		border-radius: 10px;
 	}
 	.userName{
-		position:absolute;
-		top:178px;
-		left: 450px;
 		float:left;
 		font-size: 12px;
 		width: 150px;
 		height:20px;
-		margin: 0 10px;
-		background: white;
+		margin: 2px 30px;
+		border: none;
+		background: none;
 	}
 	.regdateLabel{
-		position:absolute;
-		left: 1110px;
-		top:175px;
-	
+		float: right;
 	}
 	.regdate{
-		position:absolute;
-		left: 1170px;
-		top:178px;
 		width: 110px;
 		height:20px;
-		margin: 0 10px;
-		background: white;
+		margin: 2px 10px;
 		float: right;
 		font-size: 12px;
+		background: none;
+		border: none;
 	}
 	.contentDiv{
 		margin: 0 auto;
@@ -76,7 +79,9 @@
 	}
 	.content{
 		margin: 0 auto;
+		padding: 10px;
 		width:850px;
+		background: white;
 		height: 500px;
 		border-radius: 10px;
 		resize: none;
@@ -85,10 +90,15 @@
 	button{
 		border-radius: 10px;
 	}
-	.btn{
+	.btn11{
 		margin: 0 400px;
 	}
-	
+	.btn22{
+		border-radius: 10px;
+		background: #0d6efd;
+		color:white;
+		border:none;
+	}
 	.commentList > h5{
 		margin-left: 75px;
 	}
@@ -106,13 +116,42 @@
 		margin-top: 5px;
 		border-radius: 10px;
 	}
-	.comment{
+	
+	#content{
+		width: 790px;
+		height: 450px;
+		margin:20px;
 		border-radius: 10px;
+		border: none;
+		font-size: 15px;
+		resize: none;
+	}
+	
+	.commentList{
+		width: 840px;
+		margin: 15px 80px;
+		background: #A3A3A3;
+		border-radius: 15px;
+		padding: 15px;
+	}
+	table{
+		width:800px;
+	}
+	td{
+		background: white;
+		border-bottom: 1px solid gray;
+		text-align: center;
+	}
+	.commentTd{
+		text-align: left;
+		padding-left: 15px;
+	}
+	textarea{
 		resize: none;
 	}
 </style>
 <%
-String boNo = request.getParameter("boNo");
+	String boNo = request.getParameter("boNo");
 	if(boNo==null || boNo.isEmpty()){ %>
 		<script type="text/javascript">
 			alert("잘못된 url입니다.");
@@ -129,37 +168,77 @@ String boNo = request.getParameter("boNo");
 		e.printStackTrace();
 	}
 	//3
-	/* String content = vo.getBoCon();
-	if(content !=null && !content.isEmpty()){
-		
-		//replace \r\n => <br>
-		content=content.replace("\r\n", "<br>");
-	}else{
-		//null =>
-		content=" ";
-	} */
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+	
+	//===============comment
+	//2
+	BoCommentDAO commDao = new BoCommentDAO();
+	List<BoCommentVO> list = null;
+	try{
+		list= commDao.selectByBoComment(Integer.parseInt(boNo));
+	} catch(SQLException e){
+		e.printStackTrace();
+	}
 %>
+<script type="text/javascript" src="/../js/datatables-simple-demo.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#boardEdit').click(function(){
+			location.href="boardEdit.jsp?boNo=<%=vo.getBoNo()%>";
+		});
+		$('#boardDelete').click(function(){
+			location.href="boardDelete.jsp?boNo=<%=vo.getBoNo()%>";
+		});
+		$('#boardList').click(function(){
+			location.href="boardList.jsp";
+		});
+	});
+</script>
 <div class="listBody">
+<input type="hidden" name="boNo" value="<%=boNo%>">
 	<div class="titleH"><h3>게시판</h3></div>
 		<div class="detailBlock">
 			<label class="titleLabel">제목 : </label>
-			<div class="title"><!-- 제목 --></div>
-			<div class="userName"><a><!-- 유저이름 --></a></div>
-			<div class="regdate"><!-- 등록일 --></div>
-			<label class="regdateLabel"> 등록일 : </label><br><br>
+			<div class="title">
+				<input type="text" name="title" id="title" value="<%=vo.getBoTitle() %>">
+			</div>
+				<input type="text" name="userid" class="userName" value="<%=vo.getUserId() %>">
+				<input type="text" name="regdate" class="regdate" value="<%=sdf.format(vo.getBoDate()) %>">
+				<label class="regdateLabel"> 등록일 : </label><br><br>
 			<div class="contentDiv">
-				<textarea class="content" name="content"><!-- 내용 --></textarea>
+				<div class="content" >
+					<textarea rows="114" cols="30" name="content" id="content"><%=vo.getBoCon() %></textarea> 
+				</div>
 			</div>
 		</div>
-		<div class="btn">
-			<button>수정</button>
-			<button>삭제</button>
-			<button>목록</button>
+		<div class="btn11">
+			<input type="button" value="수정" id="boardEdit" class="btn22">
+			<input type="button" value="삭제" id="boardDelete" class="btn22">
+			<input type="button" value="목록" id="boardList" class="btn22">
 		</div>
 		<div class="commentList">
-			<h5>댓글</h5>
 			<!-- 댓글 목록 반복 -->
 			<!-- 테이블로 만들기@@@@@@@@ -->
+			<table>
+				<colgroup>
+					<col style="width:20%;"/>
+					<col style="width:60%;"/>
+					<col style="wdith:10%;"/>
+					<col style="wdith:10%;"/>
+				</colgroup>
+				<tbody>
+				<%for(int i=0;i<list.size(); i++){ 
+					BoCommentVO commVo = list.get(i);
+				%>
+					<tr>
+						<td><%=commVo.getUserId() %></td>
+						<td class="commentTd"><%=commVo.getBcCom() %></td>
+						<td><%=sdf.format(commVo.getBcDate()) %></td>
+						<td><%=commVo.getBcLike() %></td>
+					</tr>
+				<%} %>
+				</tbody>
+			</table>
 		</div>
 		<div class="commentInsert">
 			<!-- 댓글 입력 -->
@@ -168,9 +247,10 @@ String boNo = request.getParameter("boNo");
 			<textarea rows="3" cols="100" class="comment" ></textarea> 
 			<span class="commentSec">	
 				<input type="checkbox" class="chSec">비밀글<br>
-				<input type="submit" class="submit" value="등록">
+				<input type="submit" class="submit" value="등록" onclick="bo_CommentWrite_ok.jsp">
 			</span>
 			</span>
 		</div>
 </div>
+	
 <%@ include file="/../startbootstrap-sb-admin-gh-pages/inc/bottom.jsp" %>

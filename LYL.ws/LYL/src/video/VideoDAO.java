@@ -40,7 +40,7 @@ public class VideoDAO {
 				VideoVO vvo = new VideoVO();
 				vvo.setVidNo(rs.getInt(1));
 				vvo.setVidTitle(rs.getString(2));
-				vvo.setVidHits(rs.getInt(3));
+				vvo.setVidHits(rs.getLong(3));
 				vvo.setVidCom(rs.getInt(4));
 				vvo.setVidurl(rs.getString(5));
 				vvo.setVidLike(rs.getInt(6));
@@ -77,7 +77,7 @@ public class VideoDAO {
 			if(rs.next()) {
 				int vidNo = rs.getInt("vidNo");
 				String vidTitle = rs.getString("vidTitle");
-				int vidHits = rs.getInt("vidHits");
+				long vidHits = rs.getLong("vidHits");
 				int vidCom = rs.getInt("vidCom");
 				String vidurl = rs.getString("vidurl");
 				int vidLike = rs.getInt("vidLike");
@@ -122,7 +122,7 @@ public class VideoDAO {
 				VideoVO vvo = new VideoVO();
 				vvo.setVidNo(rs.getInt(1));
 				vvo.setVidTitle(rs.getString(2));
-				vvo.setVidHits(rs.getInt(3));
+				vvo.setVidHits(rs.getLong(3));
 				vvo.setVidCom(rs.getInt(4));
 				vvo.setVidurl(rs.getString(5));
 				vvo.setVidLike(rs.getInt(6));
@@ -138,6 +138,30 @@ public class VideoDAO {
 			return list;
 		}finally {
 			pool.dbClose(rs,ps,conn);
+		}
+	}
+	
+	public int vidAllCnt() throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = pool.getConnection();
+			
+			String sql = "select count(*) from video";
+			ps=conn.prepareStatement(sql);
+			
+
+			rs=ps.executeQuery();
+			int cnt=0;
+			while(rs.next()) {
+				cnt=rs.getInt(1);
+			}
+			return cnt;
+		
+		}finally {
+			pool.dbClose(rs, ps, conn);
 		}
 	}
 }

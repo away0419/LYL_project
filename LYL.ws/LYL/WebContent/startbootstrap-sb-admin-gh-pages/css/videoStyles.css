@@ -12,9 +12,7 @@ iframe {
 	margin: 0 5px;
 }
 
-body {
-	width: 1280px;
-}
+
 
 header {
 	text-align: center;
@@ -83,7 +81,7 @@ main {
 	margin: 0;
 	font-weight: bold;
 	font-size: 20px;
-	width: 750px;
+	width: 1100px;
 }
 
 .video_hits {

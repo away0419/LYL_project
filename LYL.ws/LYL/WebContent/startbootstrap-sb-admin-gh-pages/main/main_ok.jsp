@@ -1,3 +1,5 @@
+<%@page import="src.myuser.MyuserVO"%>
+<%@page import="src.myuser.MyuserService"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="theme.ThemeService"%>
 <%@page import="javax.swing.text.DefaultEditorKit.InsertBreakAction"%>
@@ -14,31 +16,41 @@
 	List<VideoVO> list = sv.videoThemaList(Integer.parseInt(scThNum));
 	String themeName = tsv.themeName(Integer.parseInt(scThNum));
 	DecimalFormat df = new DecimalFormat("#,###.#");
-			
+	MyuserService msv = new MyuserService();
 
 %>{ 
 	"vidList" : [
 	<%for(int i =0; i<list.size();i++){
 		VideoVO vo = list.get(i);
+		
 		String title= vo.getVidTitle();
 		if(title.length()>15){
 			title=title.substring(0, 15);
 			title+="...";
 		}
-		String svidHits="";
 		
-		if(vo.getVidHits()<10000){
-			svidHits=df.format(vo.getVidHits())+"회";
+		String svidHits="";
+		long hits= vo.getVidHits();		
+		if(hits>=100000000){
+			hits/= 10000000;
+			float fhits= hits/10.f;
+			svidHits=df.format(fhits)+"억회";
 		}
-		else if(vo.getVidHits()<100000000){
-			int ihits = vo.getVidHits()/1000;
-			float fhits= ihits/10.f;
+		else if(hits>=10000){
+			hits /=1000;
+			float fhits= hits/10.f;
 			svidHits=df.format(fhits)+"만회";
+		}else{
+			svidHits=df.format(hits)+"회";
 		}
+		
+		String userno=String.valueOf(vo.getUserNo());
+		MyuserVO mvo = msv.selectMyuserByVidNo(userno);
+		
 			
 	%>
 	
-	{"vidNo" : "<%=vo.getVidNo() %>", "vidImg" : "<%=vo.getVidThu() %>", "vidTitle" : "<%=title %>", "vidUserNo" : "<%=vo.getUserNo() %>", "vidHits" : "<%=svidHits %>"}<%if(i<list.size()-1){ %>,<%} %> 
+	{"vidNo" : "<%=vo.getVidNo() %>", "vidImg" : "<%=vo.getVidThu() %>", "vidTitle" : "<%=title %>", "vidUserId" : "<%=mvo.getUserId() %>", "vidHits" : "<%=svidHits %>"}<%if(i<list.size()-1){ %>,<%} %> 
 		
 	<%}
 %>],"vidListSize":<%=list.size()%>, "themeName" : "<%=themeName %>" }<%

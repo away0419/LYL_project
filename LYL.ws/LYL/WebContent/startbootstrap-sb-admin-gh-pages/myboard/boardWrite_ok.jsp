@@ -1,54 +1,50 @@
 <%@page import="board.BoardVO"%>
 <%@page import="board.BoardDAO"%>
 <%@page import="java.sql.SQLException"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8"">
 <title>Insert title here</title>
 </head>
 <body>
-<%
-
-		String userid = (String) session.getAttribute("userid");
-
-		//write.jsp¿¡¼­ post¹æ½ÄÀ¸·Î ¼­ºê¹Ô
-		//1.
-		request.setCharacterEncoding("utf-8");
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		
-		//ip ÀĞ¾î¿À±â
-		String ip = request.getRemoteAddr();
-		String ip2 = request.getRemoteHost();
-		System.out.println("ip="+ip+", ip2="+ip2);
-		
-		//2.
-		BoardDAO dao = new BoardDAO();
-		BoardVO vo = new BoardVO();
-		vo.setBoTitle(title);
-		/* vo.setUserNo(userNo); */ //userid·Î ¹Ş¾Æ¿Ã°ÍÀÎÁö no·Î ¹Ş¾Æ¿Ã°ÍÀÎÁö
-		vo.setBoCon(content);
-		try{
-			int cnt = dao.insertBoard(vo);
-			
-			//3.
-			if(cnt>0){ %>
-				<script type="text/javascript">
-				 	alert('±ÛÀÛ¼º ¿Ï·á µÇ¾ú½À´Ï´Ù.');
-			        location.href="boardList.jsp";
-		        </script>
-			<%}else{ %>
-				<script type="text/javascript">
-					alert('±ÛÀÛ¼º ½ÇÆĞ µÇ¾ú½À´Ï´Ù.');
-					history.back();
-				</script>
-			<%}
-		}catch (SQLException e){
-			e.printStackTrace();
-		}
-	%>
+	<%
+	//write.jspì—ì„œ postë°©ì‹ìœ¼ë¡œ ì„œë¸Œë°‹
+	//1.
+	request.setCharacterEncoding("utf-8");
+	String title = request.getParameter("title");
+	String content = request.getParameter("content");
+	String pwd = request.getParameter("pwd");
+	String userId = "ì´ë¦„";
+	String userNo = "1";
+	 
+	//2.
+	BoardDAO dao = new BoardDAO();
+	BoardVO vo =  new BoardVO();
+	vo.setBoTitle(title);
+	vo.setBoCon(content);
+	vo.setBoPwd(Integer.parseInt(pwd));
+	vo.setUserNo(Integer.parseInt(userNo));
+	vo.setUserId(userId);
+	try {
+		int cnt=dao.insertBoard(vo);
+		//3.
+		if (cnt > 0) {
+			%>
+			<script type="text/javascript">
+				alert('ê¸€ì“°ê¸° ì²˜ë¦¬ ë˜ì—ˆìŠµë‹ˆë‹¤');
+				location.href = "boardList.jsp";
+			</script>
+		<%} else {%>
+			<script type="text/javascript">
+				alert('ê¸€ì“°ê¸°ì²˜ë¦¬ ì‹¤íŒ¨');
+				history.back();
+			</script>
+		<%}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}%>
 </body>
 </html>

@@ -25,4 +25,7 @@ public class VideoService {
 		return list;
 	}
 	
+	public int vidAllCnt() throws SQLException {
+		return dao.vidAllCnt();
+	}
 }
