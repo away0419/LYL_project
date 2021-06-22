@@ -27,7 +27,7 @@ public class BoCommentDAO {
 		try {
 			conn=pool.getConnection();
 
-			String sql="select * from BOARDCOMMENT where boNo=?";
+			String sql="select * from BOARDCOMMENT where boNo=? order by bcDate";
 			ps=conn.prepareStatement(sql);
 			ps.setInt(1, boNo);
 			
@@ -66,15 +66,14 @@ public class BoCommentDAO {
 		try {
 			conn=pool.getConnection();
 			
-			String sql="insert into BOARDCOMMENT(bcNo, bcCom, bcDate, bcRe, bcLike, bcPwd, bcStep, bcSort, bcGroupNo, boNo, userNo, userId)"
-					+ " values(boardcomment_seq.nextval, '댓글댓글', default, default, default, '0', default, default, 1, 3, 1, '헤이!!')";
+			String sql="insert into BOARDCOMMENT(bcNo, bcCom, bcDate, bcRe, bcLike, bcStep, bcSort, bcGroupNo, boNo, userNo, userId)"
+					+ " values(boardcomment_seq.nextval, ?, default, default, default, default, default, ?, ?, ?, ?)";
 			ps=conn.prepareStatement(sql);
 			ps.setString(1, vo.getBcCom());
-			ps.setInt(2, vo.getBcPwd());
-			ps.setInt(3, vo.getBcGroupNo());
-			ps.setInt(4, vo.getBoNo());
-			ps.setInt(5, vo.getUserNo());
-			ps.setString(6, vo.getUserId());
+			ps.setInt(2, vo.getBcGroupNo());
+			ps.setInt(3, vo.getBoNo());
+			ps.setInt(4, vo.getUserNo());
+			ps.setString(5, vo.getUserId());
 			
 			int cnt = ps.executeUpdate();
 			System.out.println("댓글입력조회 cnt="+cnt+", 매개변수 vo="+vo);
@@ -88,22 +87,22 @@ public class BoCommentDAO {
 	}
 	
 	//삭제
-	public int deleteBoComment(BoCommentVO vo, int boNo, int bcNo) throws SQLException {
+	public int deleteBoComment(String userId, int bcNo, int boNo) throws SQLException {
 		Connection conn=null;
 		PreparedStatement ps=null;
 		
 		try {
 			conn=pool.getConnection();
 			
-			String sql="delete from boardcomment"
+			String sql="delete from BOARDCOMMENT"
 					+ " where boNo=? and bcNo=? and userId like '%' || ? || '%'";
 			ps=conn.prepareStatement(sql);
 			ps.setInt(1, boNo);
 			ps.setInt(2, bcNo);
-			ps.setString(3, vo.getUserId());
+			ps.setString(3, userId);
 			
 			int cnt = ps.executeUpdate();
-			System.out.println("댓글 삭제 결과 cnt="+cnt+", 매개변수 vo="+vo+", boNo="+boNo+", bcNo="+bcNo);
+			System.out.println("댓글 삭제 결과 cnt="+cnt+", 매개변수 userId="+userId+", bcNo="+bcNo);
 			
 			return cnt;
 		} finally {

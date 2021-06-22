@@ -35,5 +35,7 @@ public class MyuserService {
 	public MyuserVO selectMyuserByVidNo(String vidno) throws SQLException {
 		return userDao.selectMyuserByVidNo(vidno);
 	}
-
+	public int updateSubCnt(int userNo,int check) throws SQLException {
+		return userDao.updateSubCnt(userNo, check);
+	}
 }

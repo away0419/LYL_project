@@ -6,7 +6,7 @@
 <%
 //session으로 사용자아이디 받기
 	request.setCharacterEncoding("utf-8");
-	String userId = "이름";
+	String userId = "이름";      //==========임시 수정해야함!!!!!
 	String boNo = request.getParameter("boNo");
 	String title = request.getParameter("title");
 	String pwd = request.getParameter("pwd");

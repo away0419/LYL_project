@@ -73,7 +73,7 @@ public class VideoDAO {
 			
 			rs=ps.executeQuery();
 			
-			VideoVO vo = null;
+			VideoVO vo = new VideoVO();
 			if(rs.next()) {
 				int vidNo = rs.getInt("vidNo");
 				String vidTitle = rs.getString("vidTitle");
@@ -87,7 +87,18 @@ public class VideoDAO {
 				int userNo = rs.getInt("userNo");
 				String vidThu = rs.getString("vidThu");
 				
-				vo = new VideoVO(vidNo, vidTitle, vidHits, vidCom, vidurl, vidLike, vidDate, vidEx, vidTheme, userNo, vidThu);
+				vo.setVidNo(vidNo);
+				vo.setVidTitle(vidTitle);
+				vo.setVidHits(vidHits);
+				vo.setVidCom(vidCom);
+				vo.setVidurl(vidurl);
+				vo.setVidLike(vidLike);
+				vo.setVidDate(vidDate);
+				vo.setVidEx(vidEx);
+				vo.setVidTheme(vidTheme);
+				vo.setUserNo(userNo);
+				vo.setVidThu(vidThu);
+				
 			}
 			System.out.println("select 결과 vo= "+vo+"매개변수 vidno="+vidno);
 			return vo;
@@ -162,6 +173,57 @@ public class VideoDAO {
 		
 		}finally {
 			pool.dbClose(rs, ps, conn);
+		}
+	}
+	
+	public int updateHits(int vidNo) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		
+		try {
+			conn = pool.getConnection();
+			
+			String sql = "update video set vidhits=vidhits+1 where vidno=?";
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, vidNo);
+			
+			int cnt = ps.executeUpdate();
+			
+			return cnt;
+			
+			
+		}finally {
+			pool.dbClose(ps, conn);
+		}
+	}
+	
+	public int insertVideo(VideoVO vo) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = pool.getConnection();
+			
+			String sql = "insert into video(vidNo, vidTitle, vidurl, vidEx, vidTheme, userNo, vidThu, vidName,vidSize, vidOriName) \r\n"
+					+ "values(video_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, vo.getVidTitle());
+			ps.setString(2, vo.getVidurl());
+			ps.setString(3, vo.getVidEx());
+			ps.setString(4, Integer.toString(vo.getVidTheme()));
+			ps.setString(5, Integer.toString(vo.getUserNo()));
+			ps.setString(6, vo.getVidThu());
+			ps.setString(7, vo.getVidName());
+			ps.setString(8, Long.toString(vo.getVidSize()));
+			ps.setString(9, vo.getVidOriName());
+			
+			
+			int cnt = ps.executeUpdate();
+			System.out.println("인서트 결과 cnt="+cnt+"매개변수 vo ="+ vo);
+			return cnt;
+			
+		}finally {
+			pool.dbClose(ps, conn);
 		}
 	}
 }

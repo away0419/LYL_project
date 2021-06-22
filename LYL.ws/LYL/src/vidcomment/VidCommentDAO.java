@@ -113,5 +113,112 @@ public class VidCommentDAO {
 		}
 		
 	}
+	
+	public int updateComment(String comCon, int comNo) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			conn = pool.getConnection();
+			
+			String sql = "update mycomment set comcon=?, comdate=sysdate where comno=?";
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, comCon);
+			ps.setInt(2, comNo);
+			
+			
+			int cnt = ps.executeUpdate();
+			
+			return cnt;
+			
+			
+		}finally {
+			pool.dbClose(ps, conn);
+		}
+		
+	}
+	
+	public int updateCommentCnt(int comNo,int check) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			conn = pool.getConnection();
+			
+			String sql = "update mycomment set comre=comre+1 where comno=?";		
+			if(check==1) {
+				sql="update mycomment set comre=comre-1 where comno=?";
+				System.out.println("sdfsdf");
+			}
+			
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, comNo);
+			
+			
+			int cnt = ps.executeUpdate();
+			
+			return cnt;
+			
+			
+		}finally {
+			pool.dbClose(ps, conn);
+		}
+		
+	}
+	
+	public int updateLikeCnt(int comNo,int check) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			conn = pool.getConnection();
+			
+			String sql = "update mycomment set comlike=comlike+1 where comno=?";		
+			if(check==1) {
+				sql="update mycomment set comlike=comlike-1 where comno=?";
+				System.out.println("sdfsdf");
+			}
+			
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, comNo);
+			
+			
+			int cnt = ps.executeUpdate();
+			
+			return cnt;
+			
+			
+		}finally {
+			pool.dbClose(ps, conn);
+		}
+		
+	}
+	
+	public int selectLastCom() throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = pool.getConnection();
+			
+			String sql = "select comno from mycomment where rownum=1 order by comno desc";
+			ps=conn.prepareStatement(sql);
+			
+
+
+
+			rs=ps.executeQuery();
+			int cnt=0;
+			while(rs.next()) {
+				cnt = rs.getInt(1);
+			}
+		
+			return cnt;
+		}finally {
+			pool.dbClose(rs, ps, conn);
+		}
+	}
+	
 
 }

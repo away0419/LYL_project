@@ -17,8 +17,8 @@
 	String title = request.getParameter("title");
 	String content = request.getParameter("content");
 	String pwd = request.getParameter("pwd");
-	String userId = "이름";
-	String userNo = "1";
+	String userId = "이름";     //==========임시 수정해야함!!!!!
+	String userNo = "1";      //==========임시 수정해야함!!!!!
 	 
 	//2.
 	BoardDAO dao = new BoardDAO();

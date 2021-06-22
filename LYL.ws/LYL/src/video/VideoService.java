@@ -28,4 +28,8 @@ public class VideoService {
 	public int vidAllCnt() throws SQLException {
 		return dao.vidAllCnt();
 	}
+	
+	public int updateHits(int vidNo) throws SQLException {
+		return dao.updateHits(vidNo);
+	}
 }

@@ -14,12 +14,16 @@ public class VideoVO {
 	private int vidTheme; /* �¸� ��ȣ */
 	private int userNo; /* ũ�������� */
 	private String vidThu; /* ����ϰ�� */
-	
+	private String vidName;
+	private long vidSize;
+	private String vidOriName;
+
 	public VideoVO() {
+		super();
 	}
 
 	public VideoVO(int vidNo, String vidTitle, long vidHits, int vidCom, String vidurl, int vidLike, Timestamp vidDate,
-			String vidEx, int vidTheme, int userNo, String vidThu) {
+			String vidEx, int vidTheme, int userNo, String vidThu, String vidName, long vidSize, String vidOriName) {
 		super();
 		this.vidNo = vidNo;
 		this.vidTitle = vidTitle;
@@ -32,6 +36,9 @@ public class VideoVO {
 		this.vidTheme = vidTheme;
 		this.userNo = userNo;
 		this.vidThu = vidThu;
+		this.vidName = vidName;
+		this.vidSize = vidSize;
+		this.vidOriName = vidOriName;
 	}
 
 	public int getVidNo() {
@@ -122,13 +129,36 @@ public class VideoVO {
 		this.vidThu = vidThu;
 	}
 
+	public String getVidName() {
+		return vidName;
+	}
+
+	public void setVidName(String vidName) {
+		this.vidName = vidName;
+	}
+
+	public long getVidSize() {
+		return vidSize;
+	}
+
+	public void setVidSize(long vidSize) {
+		this.vidSize = vidSize;
+	}
+
+	public String getVidOriName() {
+		return vidOriName;
+	}
+
+	public void setVidOriName(String vidOriName) {
+		this.vidOriName = vidOriName;
+	}
+
 	@Override
 	public String toString() {
 		return "VideoVO [vidNo=" + vidNo + ", vidTitle=" + vidTitle + ", vidHits=" + vidHits + ", vidCom=" + vidCom
 				+ ", vidurl=" + vidurl + ", vidLike=" + vidLike + ", vidDate=" + vidDate + ", vidEx=" + vidEx
-				+ ", vidTheme=" + vidTheme + ", userNo=" + userNo + ", vidThu=" + vidThu + "]";
+				+ ", vidTheme=" + vidTheme + ", userNo=" + userNo + ", vidThu=" + vidThu + ", vidName=" + vidName
+				+ ", vidSize=" + vidSize + ", vidOriName=" + vidOriName + "]";
 	}
-	
-	
-	
+
 }

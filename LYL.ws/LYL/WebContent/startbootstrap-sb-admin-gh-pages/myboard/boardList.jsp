@@ -79,6 +79,11 @@
 		text-decoration: none;
 		font-size:20px;
 	}
+	
+	.divPage{
+		text-align: center;
+		margin-top:10px;
+	}
 </style>
 <script type="text/javascript" src="/../js/datatables-simple-demo.js"></script>
 <script type="text/javascript">
@@ -89,6 +94,10 @@
 	});
 </script>
 <%
+	//int userNo=(int)session.getAttribute("userNo");
+	//String userId=(String)session.getAttribute("userId");
+	
+	
 	//[1] myPage.jsp에서 [게시판]버튼 클릭해서 get방식으로 이동
 	// 1. 파라미터 읽어오기
 	
@@ -104,6 +113,35 @@
 	//3.
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");   
 	
+	
+	//===========  페이징 처리 =============
+	int currentPage=1;  //현재 페이지
+   
+   if(request.getParameter("currentPage") !=null ){
+      currentPage=Integer.parseInt(request.getParameter("currentPage"));
+   }
+   
+   //(1) 현재 페이지와 무관한 변수
+   int totalRecord = 0;  //전체 레코드 개수
+   if(list !=null && !list.isEmpty()){
+      totalRecord=list.size();
+   }
+   int pageSize=15;  //한 페이지에 보여줄 레코드 수
+   int totalPage = (int)Math.ceil((float)totalRecord/pageSize); //총 페이지수
+   int blockSize=10;  //한 블럭에 보여줄 페이지 수
+   
+   //(2) 현재 페이지를 이용하여 계산하는 변수
+   int firstPage=currentPage - ((currentPage-1)%blockSize);
+   //=> 블럭의 시작 페이지
+   
+   int lastPage=firstPage + (blockSize-1);
+   
+   //페이지당 ArrayList에서의 시작 index
+   int curPos = (currentPage-1)*pageSize;
+   
+   //페이지당 글 리스트 시작 번호
+   int num=totalRecord-curPos;
+   
 %>
 <script type="text/javascript" src="/../js/datatables-simple-demo.js"></script>
 <script type="text/javascript">
@@ -141,8 +179,10 @@
 		         </tr>
 	     	 <%}else{ %>
 					<!-- 게시글이 있을 경우 -->
-				<% for(int i=0;i<list.size() ;i++){ 
-					BoardVO vo=list.get(i); //0, 5, 10, 15 
+				<% for(int i=0;i<pageSize ;i++){ 
+					if(num<1) break;
+					BoardVO vo=list.get(curPos++); //0, 5, 10, 15 
+					num--;
 				%>
 					<tr>
 						<td><%=vo.getUserId() %></td> <!-- 내용이 이름으로 가는 이유 모름 -->
@@ -155,5 +195,33 @@
 			<%}//if%>
 		</tbody>
 	</table>
+   <!-- ===== 페이징 처리 ===== -->      
+	<div class="divPage">
+   <!-- 이전 블럭 -->
+   <%if(firstPage>1){ %>
+      <a href="boardList.jsp?currentPage=<%=firstPage-1%>">
+         ◀
+      </a>
+   <%}//if %>
+                  
+   <!-- 1 2 3 4 5 6..... 10 -->
+   <%
+      for(int i=firstPage;i<=lastPage;i++){
+         if(i>totalPage) break;
+         
+         if(i == currentPage){%>
+            <span style="font-weight: bold;color:#0d6efd;text-decoration:underline;"><%=i %></span>
+         <%}else{ %>
+            <a href="boardList.jsp?currentPage=<%=i%>" style="color: black;text-decoration:none;"><%=i %></a>
+         <%}//if %>   
+   <%}//for %>
+   
+   <!-- 다음 블럭 -->
+   <%if(lastPage < totalPage){ %>
+      <a href="list.jsp?currentPage=<%=lastPage+1%>">
+         ▶
+      </a>
+   <%}//if %>
+	</div>
 </div>
 <%@ include file="/../startbootstrap-sb-admin-gh-pages/inc/bottom.jsp" %>

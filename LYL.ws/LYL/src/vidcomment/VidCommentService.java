@@ -20,4 +20,16 @@ public class VidCommentService {
 	public int deleteComment(int comNo) throws SQLException{
 		return dao.deleteComment(comNo);
 	}
+	public int updateComment(String comCon, int comNo) throws SQLException {
+		return dao.updateComment(comCon,comNo);
+	}
+	public int updateCommentCnt(int comNo,int check) throws SQLException {
+		return dao.updateCommentCnt(comNo, check);
+	}
+	public int updateLikeCnt(int comNo,int check) throws SQLException {
+		return dao.updateLikeCnt(comNo, check);
+	}
+	public int selectLastCom() throws SQLException {
+		return dao.selectLastCom();
+	}
 }

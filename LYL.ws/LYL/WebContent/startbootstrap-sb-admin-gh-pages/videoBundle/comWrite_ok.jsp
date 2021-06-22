@@ -17,5 +17,11 @@
 	vvo.setComGroup(Integer.parseInt(comGroup));
 	
 	int cnt = vsv.insertComment(vvo);
-			
+	if(Integer.parseInt(comGroup)!=0){
+		int cnt2 = vsv.updateCommentCnt(Integer.parseInt(comGroup), 0);
+	}
+	int cnt3 = vsv.selectLastCom();
 %>
+{
+	"cnt":<%=cnt3 %>
+}

@@ -10,7 +10,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/startbootstrap-sb-admin-gh-pages/inc/top.jsp"%>
 
-
 <style>
 	#player{
 		padding-top: 10px;
@@ -40,7 +39,7 @@
 
     			type : "post", //get post둘중하나
 
-    			data : {"vidComCnt":vidComCnt,"vidNo":vidNo, "vidGroup":0},
+    			data : {"vidComCnt":vidComCnt,"vidNo":vidNo, "vidGroup":0, "loginUserNo":userNo},
     			
 
     			success : function(data) {
@@ -92,6 +91,10 @@
 	    	        	$('.vidComment').last().append(otherReplyCom);
 	    	        	$('.vidComment').last().append(otherReComDiv);
     					vidComCnt2++;
+    					
+    					if(comList[i].comLikeCheck==1){
+    						$('.vidComment').last().children('.btComLike').css('background', '#dc3545');
+    					}
     				}
     				vidComCnt+=comListSize;
     				if(vidComCnt==9 || vidComCnt==1){
@@ -109,27 +112,27 @@
     $(function(){
     	$('body').on('click','button.btComRe',(function(){
     		$(this).parent().children('.ReComDiv').toggle();
-    		
     		var reComNo= $(this).parent().children('.hid1').val();
     		var reComNo2= parseInt($(this).parent().children('.hid2').val());
-    		
+    		var userNumber = "${sessionScope.userNo}";
     		var firstCheck = $(this).parent().children('.reComBtFirstCheck').val();
     		var reSeeMore = $(this).parent().children('.reComSeeMore').val();
     		
     		if(firstCheck==0){
+    			
     			$.ajax({
 
         			url : "videoWatch_ok.jsp",
 
         			type : "post", //get post둘중하나
 
-        			data : {"vidComCnt":0,"vidNo":vidNo, "vidGroup":reComNo},
+        			data : {"vidComCnt":0,"vidNo":vidNo, "vidGroup":reComNo, "loginUserNo":userNumber},
         			
 
         			success : function(data) {
         				
         				var obj = JSON.parse(data);
-
+						
         				var comList = obj.comList;
         				var comListSize = obj.comListSize;
         				
@@ -147,6 +150,7 @@
     	    		    	var reotherReComCnt='<input type="hidden" class="reComCnt" value='+vidReComCnt+'>';
     	    		    	vidReComCnt++;
     	    		    	
+    	    		    	
     	    		    	$('.vidComment').eq(reComNo2).children('.ReComDiv').append('<div class="vidReComment">');
     	    		    	$('.vidComment').eq(reComNo2).children('.ReComDiv').children('.vidReComment').last().append(reotherComNo);
     	    		    	$('.vidComment').eq(reComNo2).children('.ReComDiv').children('.vidReComment').last().append(reotherReComCnt);
@@ -157,11 +161,22 @@
     	    		    	if(comList[i].comUserNo==userNo){
     	    		    		var otherBtComment4='&nbsp&nbsp<button class="btn btn-primary btReComUpdate" type="button">수정</button>';
     	    		    		var otherBtComment5	='&nbsp&nbsp<button class="btn btn-primary btReComDelete" type="button">삭제</button>';
+    	    		    		var otherBtComment6	='<div class="vidComment2" style="display:none">';
+    	    		    		var otherBtComment7	='<textarea rows="2" cols="100" class="teComCon"></textarea>';
+    	    		    		var otherBtComment8	='<button type="button" class="recomWrite">수정</button>';
+    	    		    		
     	    		    		$('.vidComment').eq(reComNo2).children('.ReComDiv').children('.vidReComment').last().append(otherBtComment4);
     	    		    		$('.vidComment').eq(reComNo2).children('.ReComDiv').children('.vidReComment').last().append(otherBtComment5);
+    	    		    		$('.vidComment').eq(reComNo2).children('.ReComDiv').children('.vidReComment').last().append(otherBtComment6);
+    	    		    		$('.vidComment').eq(reComNo2).children('.ReComDiv').children('.vidReComment').last().children('.vidComment2').append(otherBtComment7);
+    	    		    		$('.vidComment').eq(reComNo2).children('.ReComDiv').children('.vidReComment').last().children('.vidComment2').append(otherBtComment8);
     	    		    	}
     	    		    	$('.vidComment').eq(reComNo2).children('.ReComDiv').children('.vidReComment').last().append("<br>");
     	    		    	$('.vidComment').eq(reComNo2).children('.ReComDiv').children('.vidReComment').last().append("<br>");
+    	    		    	
+    	    		    	if(comList[i].comLikeCheck==1){
+    	    		    		$('.vidComment').eq(reComNo2).children('.ReComDiv').children('.vidReComment').last().children('.rebtComLike').css('background', '#dc3545');
+        					}
         				}
         				if(comListSize==9){
         					var otherBtComment2='<button class="btn btn-primary btComReSeeMore" type="button">더보기</button>';
@@ -184,6 +199,7 @@
     		var reComNo= $(this).parent().parent().children('.hid1').val();
     		var reComNo2= parseInt($(this).parent().parent().children('.hid2').val());
     		var reSeeMore = $(this).parent().parent().children('.reComSeeMore').val();
+    		var userNumber = "${sessionScope.userNo}";
     		
     		
     			$.ajax({
@@ -192,7 +208,7 @@
 
         			type : "post", //get post둘중하나
 
-        			data : {"vidComCnt":reSeeMore,"vidNo":vidNo, "vidGroup":reComNo},
+        			data : {"vidComCnt":reSeeMore,"vidNo":vidNo, "vidGroup":reComNo, "loginUserNo":userNumber},
         			
 
         			success : function(data) {
@@ -221,11 +237,21 @@
     	    		    	if(comList[i].comUserNo==userNo){
     	    		    		var otherBtComment4='&nbsp&nbsp<button class="btn btn-primary btReComUpdate" type="button">수정</button>';
     	    		    		var otherBtComment5	='&nbsp&nbsp<button class="btn btn-primary btReComDelete" type="button">삭제</button>';
+    	    		    		var otherBtComment6	='<div class="vidComment2" style="display:none">';
+    	    		    		var otherBtComment7	='<textarea rows="2" cols="100" class="teComCon"></textarea>';
+    	    		    		var otherBtComment8	='<button type="button" class="recomWrite">수정</button>';
+    	    		    		
     	    		    		$('.vidComment').eq(reComNo2).children('.ReComDiv').children('.vidReComment').last().append(otherBtComment4);
     	    		    		$('.vidComment').eq(reComNo2).children('.ReComDiv').children('.vidReComment').last().append(otherBtComment5);
+    	    		    		$('.vidComment').eq(reComNo2).children('.ReComDiv').children('.vidReComment').last().append(otherBtComment6);
+    	    		    		$('.vidComment').eq(reComNo2).children('.ReComDiv').children('.vidReComment').last().children('.vidComment2').append(otherBtComment7);
+    	    		    		$('.vidComment').eq(reComNo2).children('.ReComDiv').children('.vidReComment').last().children('.vidComment2').append(otherBtComment8);
     	    		    	}
     	    		    	$('.vidComment').eq(reComNo2).children('.ReComDiv').children('.vidReComment').last().append("<br>");
     	    		    	$('.vidComment').eq(reComNo2).children('.ReComDiv').children('.vidReComment').last().append("<br>");
+    	    		    	if(comList[i].comLikeCheck==1){
+    	    		    		$('.vidComment').eq(reComNo2).children('.ReComDiv').children('.vidReComment').last().children('.rebtComLike').css('background', '#dc3545');
+        					}
         				}
         				if(comListSize>=9){
         					var otherBtComment2='<button class="btn btn-primary btComReSeeMore" type="button">더보기</button>';        					
@@ -246,7 +272,8 @@
     	
     	$('body').on('click','button.btComReply',(function(){
     		$(this).parent().children('.ReplyCom').toggle();
-    		   		
+    		$(this).parent().children('.ReplyCom').children('.reComWrite').text("답글");   		
+    		$(this).parent().children('.ReplyCom').children('.teReComCon').val("");
     	}));//btComReply
     	
     	
@@ -260,9 +287,13 @@
 	<jsp:useBean id="subscribeService" class="src.subscribe.subscribeService" scope="page"></jsp:useBean>
 	
 	<%
-		int userNo = (int)session.getAttribute("userNo"); //세션 유저번호
+		int userNo=0;
+		if(session.getAttribute("userNo")!=null){
+			userNo = (int)session.getAttribute("userNo"); //세션 유저번호
+		}
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String vidno = request.getParameter("vidNo");  // 비디오 번호
+		
 		
 		VideoVO videoVo = null;
 		MyuserVO myuserVo = null;
@@ -271,6 +302,7 @@
 		int cnt= 0;
 		int subCnt = 0;
 		try{
+			videoService.updateHits(Integer.parseInt(vidno));
 			videoVo = videoService.videoSelect(vidno);
 			myuserVo = myuserService.selectMyuserByVidNo(vidno); //유저번호, 구독자, 타이틀 밖에 안들어있어요
 			cnt = aftervideoService.selectAftervideo(vidno, Integer.toString(userNo));
@@ -283,7 +315,10 @@
 		if(vidUrl.startsWith("https")){
 			vidUrl+="?autoplay=1&mute=1";
 		}
+		
 		System.out.println(cnt);
+		
+		
 	%>
 
    <header>
@@ -294,7 +329,7 @@
 	
 	<hr>
 	<p id='vidUploaderId'>id :&nbsp;<%=myuserVo.getUserId() %> </p>
-	<p id='vidG'>구독자<%=myuserVo.getUserSub() %> 명</p>
+	<p id='vidG'>구독자<span id='vidGs'><%=myuserVo.getUserSub() %></span> 명</p>
 	
 	<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 		<%if(subCnt>0){%>
@@ -404,6 +439,8 @@
     			return;
     		}
 			
+			var vidGnum= $('#vidGs').text();
+			
 			if($('#subscribe').text()=='구독'){
 				$.ajax({
 	
@@ -424,6 +461,8 @@
 							$(function() {
 								$('#subscribe').text('구독 취소');
 								$('#subscribe').css('background', '#dc3545');
+								vidGnum++;
+								$('#vidGs').text(vidGnum);
 							})
 	
 						}
@@ -450,6 +489,8 @@
 							$(function() {
 								$('#subscribe').text('구독');
 								$('#subscribe').css('background', '#0d6efd');
+								vidGnum--;
+								$('#vidGs').text(vidGnum);
 							})
 	
 						}
@@ -502,49 +543,84 @@
 			var firstCheck = $(this).parent().parent().children('.reComBtFirstCheck').val();
     		var comCon = $(this).parent().children('.teReComCon').val();
     		vidReComCnt=$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().children('.reComCnt').val();
-    		$.ajax({
+    		var btReWriteCheck = $(this).parent().parent().children('.ReplyCom').children('.reComWrite').text();
+    		var $commentCon=$(this).parent().parent().children('.otherContent');
+    		var $comre = $(this).parent().parent().children('.vidCommentReCnt');
+    		var comreCnt = $(this).parent().parent().children('.vidCommentReCnt').text();
+    		
+    		if(btReWriteCheck=="답글"){
+	    		$.ajax({
+	
+					url : "comWrite_ok.jsp", 
+	
+					type : "post", //get post둘중하나
+	
+					data : {
+						"userNo" : userNo,
+						"vidNo" : vidNo,
+						"comCon" : comCon,
+						"comGroup" : comGroup
+					},
+	
+					success : function(data) {
+						var obj = JSON.parse(data);
+						var cnt = obj.cnt;
+	 					$('.ReplyCom').eq(comCntNo-1).children('textarea').val(""); 					
+	 					
+	 					if(seeMoreCheck=="true" && firstCheck!=0){
+	 						var reotherComNo='<input type="hidden" class="rehid1" value='+cnt+'>';
+		 					var reotherUserId='<p class="reotherUserId"><%=myuserVo.getUserId()%></p>';
+		    		    	var reotherContent='<p class="reotherContent">'+comCon+'</p>';
+		    		    	var reotherBtCommentLike='<button class="btn btn-primary rebtComLike" type="button">좋아요 </button>';
+		    		    	var reotherCommentLikeCnt='<span class="revidCommentLikeCnt">&nbsp0&nbsp&nbsp&nbsp&nbsp</span>';
+		    		    	var otherBtComment4='&nbsp&nbsp<button class="btn btn-primary btReComUpdate" type="button">수정</button>';
+		    		    	var otherBtComment5	='&nbsp&nbsp<button class="btn btn-primary btReComDelete" type="button">삭제</button>';
+		    		    	var otherBtComment6	='<div class="vidComment2" id ="myComment" style="display:none">';
+	    		    		var otherBtComment7	='<textarea rows="2" cols="100" class="teComCon"></textarea>';
+	    		    		var otherBtComment8	='<button type="button" class="recomWrite">수정</button>';
+		    		    	vidReComCnt++;
+		    		    	var reotherReComCnt='<input type="hidden" class="reComCnt" value='+vidReComCnt+'>';
+		    		    	
+		    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').append('<div class="vidReComment">');
+		    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append(reotherComNo);
+		    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append(reotherReComCnt);
+		    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append(reotherUserId);
+		    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append(reotherContent);
+		    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append(reotherBtCommentLike);
+		    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append(reotherCommentLikeCnt);	    		    	
+		    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append(otherBtComment4);
+		    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append(otherBtComment5);
+		    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append(otherBtComment6);
+	    		    		$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().children('.vidComment2').append(otherBtComment7);
+	    		    		$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().children('.vidComment2').append(otherBtComment8);
+		    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append("<br>");
+		    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append("<br>");
+		    		   
+	 					}
+	 					comreCnt++;
+						$comre.html("&nbsp"+comreCnt+"&nbsp&nbsp&nbsp&nbsp");
+					}
+				});//ajax
+    		}else{
+    			$.ajax({
 
-				url : "comWrite_ok.jsp", 
+    				url : "updateCom_ok.jsp", 
 
-				type : "post", //get post둘중하나
+    				type : "post", //get post둘중하나
 
-				data : {
-					"userNo" : userNo,
-					"vidNo" : vidNo,
-					"comCon" : comCon,
-					"comGroup" : comGroup
-				},
+    				data : {
+    					"comCon" : comCon,
+    					"comGroup" : comGroup
+    				},
 
-				success : function(data) {			
- 					$('.ReplyCom').eq(comCntNo-1).children('textarea').val(""); 					
- 					
- 					if(seeMoreCheck=="true" && firstCheck!=0){
- 						var reotherComNo='<input type="hidden" class="rehid1" value="0">';
-	 					var reotherUserId='<p class="reotherUserId"><%=myuserVo.getUserId()%></p>';
-	    		    	var reotherContent='<p class="reotherContent">'+comCon+'</p>';
-	    		    	var reotherBtCommentLike='<button class="btn btn-primary rebtComLike" type="button">좋아요 </button>';
-	    		    	var reotherCommentLikeCnt='<span class="revidCommentLikeCnt">&nbsp0&nbsp&nbsp&nbsp&nbsp</span>';
-	    		    	var otherBtComment4='&nbsp&nbsp<button class="btn btn-primary btReComUpdate" type="button">수정</button>';
-	    		    	var otherBtComment5	='&nbsp&nbsp<button class="btn btn-primary btReComDelete" type="button">삭제</button>';		    	
-	    		    	vidReComCnt++;
-	    		    	var reotherReComCnt='<input type="hidden" class="reComCnt" value='+vidReComCnt+'>';
-	    		    	
-	    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').append('<div class="vidReComment">');
-	    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append(reotherComNo);
-	    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append(reotherReComCnt);
-	    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append(reotherUserId);
-	    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append(reotherContent);
-	    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append(reotherBtCommentLike);
-	    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append(reotherCommentLikeCnt);	    		    	
-	    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append(otherBtComment4);
-	    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append(otherBtComment5);   	
-	    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append("<br>");
-	    		    	$('.vidComment').eq(comCntNo).children('.ReComDiv').children('.vidReComment').last().append("<br>");
-	    		   
- 					}
-					
-				}
-			});//ajax
+    				success : function(data) {
+    					
+    					$commentCon.text(comCon);
+    					
+
+    				}
+    			});//ajax
+    		}
 			
     	}));//reComWrite
     	
@@ -559,7 +635,9 @@
 				type : "post", //get post둘중하나
 
 				data : {
-					"comGroup" : comGroup
+					"comGroup" : comGroup,
+					"comCheck" : 0,
+					"parentComNo" : 0
 				},
 
 				success : function(data) {							
@@ -576,10 +654,15 @@
     	}));//btComDelete
     	
     	$('body').on('click','button.btReComDelete',(function(){
+    		var parentComNo= $(this).parent().parent().parent().children('input[type=hidden]').val();
     		var comGroup = $(this).parent().children('.rehid1').val();
     		var comCntNo= $(this).parent().parent().parent().children('.hid2').val();   		
     		var rcn= $(this).parent().children('.reComCnt').val();
     		var $remove= $(this).parent();
+    		var $comre = $(this).parent().parent().parent().children('.vidCommentReCnt');
+    		var comreCnt = $(this).parent().parent().parent().children('.vidCommentReCnt').text();
+    		var reComSeeMoreCnt = $(this).parent().parent().parent().children('.reComSeeMore').val();
+    		var $rCSM = $(this).parent().parent().parent().children('.reComSeeMore');    		
     		$.ajax({
 
 				url : "comDelete_ok.jsp", //나중에볼 동영상
@@ -587,20 +670,152 @@
 				type : "post", //get post둘중하나
 
 				data : {
-					"comGroup" : comGroup
+					"comGroup" : comGroup,
+					"comCheck" : 1,
+					"parentComNo" : parentComNo
 				},
 
 				success : function(data) {							
  												
 					$remove.remove();
+					comreCnt--;
+					$comre.html("&nbsp"+comreCnt+"&nbsp&nbsp&nbsp&nbsp");
 					if(vidReComCnt!=0){
 						vidReComCnt--;
 					}
+					if(reComSeeMoreCnt>0){
+						reComSeeMoreCnt--;
+						$rCSM.val(reComSeeMoreCnt);
+					}
 					
 				}
-			});
+			});//ajax
     		
-    	}));//btComDelete
+    	}));//btReComDelete
+    	
+    	$('body').on('click','button.btComUpdate',(function(){
+    		$(this).parent().children('.ReplyCom').toggle();
+    		$(this).parent().children('.ReplyCom').children('.reComWrite').text("수정");
+    		var content = $(this).parent().children('.otherContent').text();
+    		$(this).parent().children('.ReplyCom').children('.teReComCon').val(content);	
+    	}));//btComUpdate
+    	
+    	$('body').on('click','button.btReComUpdate',(function(){
+    		$(this).parent().children('.vidComment').toggle();
+    		var content = $(this).parent().children('.reotherContent').text();
+    		$(this).parent().children('.vidComment').children('.teComCon').val(content);
+    	}));//btReComUpdate
+    	
+    	$('body').on('click','button.recomWrite',(function(){
+    		var comCon = $(this).parent().children('.teComCon').val();
+    		var comGroup = $(this).parent().parent().children('.rehid1').val();
+    		var $commentCon = $(this).parent().parent().children('.reotherContent');
+    		$.ajax({
+
+				url : "updateCom_ok.jsp", 
+
+				type : "post", //get post둘중하나
+
+				data : {
+					"comCon" : comCon,
+					"comGroup" : comGroup
+				},
+
+				success : function(data) {
+					
+					$commentCon.text(comCon);
+					
+
+				}
+			});//ajax
+    		
+    	}));//recomWrite
+    	
+    	
+    	$('body').on('click','button.btComLike',(function(){
+    		if(userNo==""){
+    			alert("로그인하세요");
+    			return;
+    		}
+    		var comNo= $(this).parent().children('input[type=hidden]').val();
+			var likeCnt = $(this).parent().children('.vidCommentLikeCnt').text();
+			var $ObjLikeCnt = $(this).parent().children('.vidCommentLikeCnt');
+			var $my = $(this);
+    		$.ajax({
+
+				url : "comLike_ok.jsp", //나중에볼 동영상
+
+				type : "post", //get post둘중하나
+
+				data : {
+					"comNo" : comNo,
+					"userNo" : userNo
+				},
+
+				success : function(data) {							
+ 												
+					var obj = JSON.parse(data);
+
+					var likecheck = obj.likecheck;
+					
+					if(likecheck==1){
+						likeCnt++;
+						$ObjLikeCnt.html("&nbsp"+likeCnt+"&nbsp&nbsp&nbsp&nbsp");
+						$my.css('background', '#dc3545');
+					}else{
+						likeCnt--;
+						$ObjLikeCnt.html("&nbsp"+likeCnt+"&nbsp&nbsp&nbsp&nbsp");
+						$my.css('background', '#0d6efd');
+					}
+					
+				}
+			});//ajax
+			
+    	}));//btComLike
+    	
+    	$('body').on('click','button.rebtComLike',(function(){
+    		if(userNo==""){
+    			alert("로그인하세요");
+    			return;
+    		}
+    		var comNo = $(this).parent().children('.rehid1').val();
+			var likeCnt = $(this).parent().children('.revidCommentLikeCnt').text();
+			var $ObjLikeCnt = $(this).parent().children('.revidCommentLikeCnt');
+			var $my = $(this);
+    		$.ajax({
+
+				url : "comLike_ok.jsp", //나중에볼 동영상
+
+				type : "post", //get post둘중하나
+
+				data : {
+					"comNo" : comNo,
+					"userNo" : userNo
+				},
+
+				success : function(data) {							
+ 												
+					var obj = JSON.parse(data);
+
+					var likecheck = obj.likecheck;
+					
+					if(likecheck==1){
+						likeCnt++;
+						$ObjLikeCnt.html("&nbsp"+likeCnt+"&nbsp&nbsp&nbsp&nbsp");
+						$my.css('background', '#dc3545');
+					}else{
+						likeCnt--;
+						$ObjLikeCnt.html("&nbsp"+likeCnt+"&nbsp&nbsp&nbsp&nbsp");
+						$my.css('background', '#0d6efd');
+					}
+					
+				}
+			});//ajax
+			
+    	}));//rebtComLike
+    	
+    	
+    	
 		
 	});
 </script>

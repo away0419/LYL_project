@@ -1,3 +1,4 @@
+<%@page import="java.sql.SQLException"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="src.myuser.MyuserVO"%>
@@ -6,11 +7,29 @@
 <%@ include file="/startbootstrap-sb-admin-gh-pages/inc/top.jsp"%>
 <link href="../css/myPageStyles.css" rel="stylesheet">
 <jsp:useBean id="myuserService" class="src.myuser.MyuserService" scope="session" ></jsp:useBean>
+<jsp:useBean id="subscribeService" class="src.subscribe.subscribeService" scope="page"></jsp:useBean>
 <% 
-String userid =(String) session.getAttribute("userid");
-//userid = "123";
 MyuserVO vo = new MyuserVO();
-vo = myuserService.selectMyuser(userid);
+boolean isMine = true;
+int subCnt=0;
+	try{
+		String vidNo = request.getParameter("vidno");//비디오에서 마이페이지 온다 가정
+		if(vidNo!=null){
+			vo = myuserService.selectMyuserByVidNo(vidNo);
+			String userid =(String) session.getAttribute("userid");
+			int userNo = (int) session.getAttribute("userNo");
+			isMine = false;
+			subCnt = subscribeService.selectSubscribe(Integer.toString(vo.getUserNo()), Integer.toString(userNo));
+		}else{
+			String userid =(String) session.getAttribute("userid");
+			vo = myuserService.selectMyuser(userid);
+		}
+		
+		
+	}catch(SQLException e){
+		e.printStackTrace();
+		
+	}
 String imgName = null;
 if(vo.getUserImgName()!=null ){
 	imgName = vo.getUserImgName();
@@ -18,6 +37,7 @@ if(vo.getUserImgName()!=null ){
 
 %>
 
+<script type="text/javascript" src="../../js/jquery-3.6.0.min.js"></script>
 <script>
 	$(window)
 			.scroll(
@@ -40,6 +60,21 @@ if(vo.getUserImgName()!=null ){
 							}
 						}
 					});
+	
+
+</script>
+<script type="text/javascript">
+	$(function(){
+		$('#uploadFile').click(function(){
+			location.href="videoUp.jsp";
+		});
+		
+		$('#myboard').click(function(){
+			location.href="../myboard/boardList.jsp";
+		});
+		
+	});
+
 </script>
 
 
@@ -52,11 +87,24 @@ if(vo.getUserImgName()!=null ){
 			<%}else{ %>
 			<img id="userImg" src="../userImg/<%=imgName %>" class="img-thumbnail" style="width: 200px" alt="...">
 			<%} %>
-			<div class="d-inline-flex position-relative start-50">
-				<button type="button" class="btn btn-primary me-2">영상 업로드</button>
-				<button type="button" class="btn btn-primary me-2">게시판</button>
-				<button type="button" class="btn btn-primary">구독</button>
-			</div>
+			
+			<%if(isMine==true){ %>
+				<div class="d-inline-flex position-relative start-50">
+					<button id="uploadFile" type="button" class="btn btn-primary me-2">영상 업로드</button>
+					<button id="myboard" type="button" class="btn btn-primary me-2">게시판</button>
+				</div>
+			<%}else{ %>
+				<%if(subCnt>0){%>
+					<div>
+					<button id="subscribe" class="btn btn-primary" type="button" value="<%=vo.getUserNo()%>" style="background: #dc3545">구독 취소</button>
+					</div>
+				<%}else { %>
+					<div>
+					<button id="subscribe" class="btn btn-primary" type="button" value="<%=vo.getUserNo()%>">구독</button>
+					</div>
+				<%} %>
+			<%} %>
+			
 			<div class="userInfo">
 				<h2 id="userid"><%=vo.getUserId() %></h2>
 				<p id="userEmail"><%=vo.getUserEmail()%></p>
@@ -88,7 +136,71 @@ if(vo.getUserImgName()!=null ){
 		<div id="video"></div>
 	</div>
 </div>
-
+<script type="text/javascript">
+	$(function(){
+		var userNo = "${sessionScope.userNo}"; //로이그인 해서 들어온 유저
+		var userNo2 = $('#subscribe').val(); //영상 올린 유저
+		
+		
+		$('#subscribe').click(function() {
+			
+			if($('#subscribe').text()=='구독'){
+				$.ajax({
+	
+					url : "usbscribe_ok.jsp", //나중에볼 동영상
+	
+					type : "post", //get post둘중하나
+	
+					data : {
+						"userNo" : userNo,
+						"userNo2" : userNo2
+					},
+	
+					success : function(data) {
+						var obj = JSON.parse(data);
+						var cnt = obj.cnt;
+	
+						if (cnt > 0) {
+							$(function() {
+								$('#subscribe').text('구독 취소');
+								$('#subscribe').css('background', '#dc3545');
+							})
+	
+						}
+	
+					}
+				});
+			} else if($('#subscribe').text()=='구독 취소'){
+				$.ajax({
+					
+					url : "delUsbscribe_ok.jsp", //나중에볼 동영상
+	
+					type : "post", //get post둘중하나
+	
+					data : {
+						"userNo" : userNo,
+						"userNo2" : userNo2
+					},
+	
+					success : function(data) {
+						var obj = JSON.parse(data);
+						var cnt = obj.cnt;
+	
+						if (cnt > 0) {
+							$(function() {
+								$('#subscribe').text('구독');
+								$('#subscribe').css('background', '#0d6efd');
+							})
+	
+						}
+	
+					}
+				});
+			}
+		});
+		
+	})
+</script>
 
 
 
