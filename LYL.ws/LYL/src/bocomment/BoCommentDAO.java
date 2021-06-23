@@ -36,9 +36,6 @@ public class BoCommentDAO {
 				int bcNo=rs.getInt("bcNo");
 				String bcCom=rs.getString("bcCom");
 				Timestamp bcDate=rs.getTimestamp("bcDate");
-				int bcRe=rs.getInt("bcRe");
-				int bcLike=rs.getInt("bcLike");
-				int bcPwd=rs.getInt("bcPwd");
 				int bcStep=rs.getInt("bcStep");
 				int bcSort=rs.getInt("bcSort");
 				int bcGroupNo=rs.getInt("bcGroupNo");
@@ -46,7 +43,7 @@ public class BoCommentDAO {
 				int userNo=rs.getInt("userNo");
 				String userId=rs.getString("userId");
 				
-				BoCommentVO vo = new BoCommentVO(bcNo, bcCom, bcDate, bcRe, bcLike, bcPwd, bcStep, bcSort, bcGroupNo, boNo1, userNo, userId);
+				BoCommentVO vo = new BoCommentVO(bcNo, bcCom, bcDate, bcStep, bcSort, bcGroupNo, boNo1, userNo, userId);
 				list.add(vo);
 			}
 			System.out.println("게시글의 댓글 전체조회 list.size="+list.size()+", 매개변수 boNo"+boNo);
@@ -55,7 +52,6 @@ public class BoCommentDAO {
 		} finally {
 			pool.dbClose(rs, ps, conn);
 		}
-		
 	}
 	
 	//입력
@@ -66,14 +62,13 @@ public class BoCommentDAO {
 		try {
 			conn=pool.getConnection();
 			
-			String sql="insert into BOARDCOMMENT(bcNo, bcCom, bcDate, bcRe, bcLike, bcStep, bcSort, bcGroupNo, boNo, userNo, userId)"
-					+ " values(boardcomment_seq.nextval, ?, default, default, default, default, default, ?, ?, ?, ?)";
+			String sql="insert into BOARDCOMMENT(bcNo, bcCom, bcDate, bcStep, bcSort, bcGroupNo, boNo, userNo, userId)"
+					+ " values(boardcomment_seq.nextval, ?, default, default, default, 1, ?, ?, ?)";
 			ps=conn.prepareStatement(sql);
 			ps.setString(1, vo.getBcCom());
-			ps.setInt(2, vo.getBcGroupNo());
-			ps.setInt(3, vo.getBoNo());
-			ps.setInt(4, vo.getUserNo());
-			ps.setString(5, vo.getUserId());
+			ps.setInt(2, vo.getBoNo());
+			ps.setInt(3, vo.getUserNo());
+			ps.setString(4, vo.getUserId());
 			
 			int cnt = ps.executeUpdate();
 			System.out.println("댓글입력조회 cnt="+cnt+", 매개변수 vo="+vo);
@@ -82,8 +77,6 @@ public class BoCommentDAO {
 		} finally {
 			pool.dbClose(ps, conn);
 		}
-		
-		
 	}
 	
 	//삭제
@@ -108,6 +101,5 @@ public class BoCommentDAO {
 		} finally {
 			pool.dbClose(ps, conn);
 		}
-		
 	}
 }

@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import db.ConnectionPoolMgr2;
+import src.watchrecord.watchrecordVO;
 
 public class aftervideoDAO {
 	private ConnectionPoolMgr2 pool;
@@ -83,6 +86,41 @@ public class aftervideoDAO {
 			pool.dbClose(rs, ps, conn);
 		}
 	}
+	
+	public List<aftervideoVO> selectAllByUserNo(String userNo, int rowcnt) throws SQLException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<aftervideoVO> list =new ArrayList<aftervideoVO>();
+		try {
+			conn = pool.getConnection();
+			
+			String sql = "select * from \r\n"
+					+ "(select  ad.*, rownum as rowcnt from\r\n"
+					+ "(select * from AFTERVIDEO where userno=?)ad)\r\n"
+					+ "where rowcnt>? and rowcnt<=?";
+			
+			
+			
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, userNo);
+			ps.setInt(2, rowcnt);
+			ps.setInt(3, rowcnt+5);
+			
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				aftervideoVO vo = new aftervideoVO();
+				vo.setUserNo(rs.getInt(1));
+				vo.setVidNo(rs.getInt(2));
+				list.add(vo);
+			}
+			return list;
+		}finally {
+			pool.dbClose(rs, ps, conn);
+		}
+	}
+
 	
 	
 }

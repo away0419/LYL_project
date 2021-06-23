@@ -32,4 +32,13 @@ public class VideoService {
 	public int updateHits(int vidNo) throws SQLException {
 		return dao.updateHits(vidNo);
 	}
+	public List<VideoVO> videoSelectByUserId(int userNo ,int vidCnt) throws SQLException{
+		return dao.videoSelectByUserId(userNo, vidCnt);
+	}
+	public String selectVideoMostView() throws SQLException {
+		return dao.selectVideoMostView();
+	}
+	public List<VideoVO> selectMyVideoMostView(String userNo) throws SQLException {
+		return dao.selectMyVideoMostView(userNo);
+	}
 }

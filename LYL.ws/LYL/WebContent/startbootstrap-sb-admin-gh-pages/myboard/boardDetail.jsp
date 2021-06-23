@@ -12,7 +12,7 @@
 	.listBody{
 		width: 1000px;
 		height: auto;
-		margin: 10px auto;
+		margin: 10px 13%;
 		padding-top: 20px;
 		background: rgb(242, 242, 242);
 		border-radius: 30px;
@@ -41,7 +41,15 @@
 		margin-left: 50px;
 		float: left;
 	}
+	.userIdLabel{
+		margin-top: 5px;
+		font-weight: bold;
+		font-size: 15px;
+		margin-left: 35px;
+		float: left;
+	}
 	#title{
+		background: white;
 		border: none;
 	}
 	.title{
@@ -54,10 +62,10 @@
 	}
 	.userName{
 		float:left;
-		font-size: 12px;
+		font-size: 15px;
 		width: 150px;
 		height:20px;
-		margin: 2px 30px;
+		margin: 6px 0px 5px 15px;
 		border: none;
 		background: none;
 	}
@@ -148,6 +156,7 @@
 		padding-left: 15px;
 	}
 	textarea{
+		background: white;
 		resize: none;
 	}
 	
@@ -163,15 +172,14 @@
 	}
 </style>
 <%
-	//String userId=(String)session.getAttribute("userId");
-	String userId="yooh";       //==========임시 수정해야함!!!!!
-	
-
+	String userId=(String)session.getAttribute("userid");
 	String boNo = request.getParameter("boNo");
+	String userNo = request.getParameter("userNo");
+	
 	if(boNo==null || boNo.isEmpty()){ %>
 		<script type="text/javascript">
 			alert("잘못된 url입니다.");
-			location.href="boardList.jsp";
+			location.back();
 		</script>	
 	<% return;
 	}
@@ -200,21 +208,30 @@
 <script type="text/javascript">
 	$(function(){
 		$('#boardEdit').click(function(){
-			location.href="boardEdit.jsp?boNo=<%=vo.getBoNo()%>";
+			location.href="boardEdit.jsp?boNo=<%=vo.getBoNo()%>&userNo=<%=userNo%>";
 		});
 		$('#boardDelete').click(function(){
-			location.href="boardDelete.jsp?boNo=<%=vo.getBoNo()%>";
+			location.href="boardDelete.jsp?boNo=<%=vo.getBoNo()%>&userNo=<%=userNo%>";
 		});
 		$('#boardList').click(function(){
-			location.href="boardList.jsp";
+			location.href="boardList.jsp?boNo=<%=vo.getBoNo()%>&userNo=<%=userNo%>";
 		});
+		
+		
 		$('.bcDeleteBtn').click(function(){
 			var delComm=confirm('댓글을 삭제하겠습니까?');
+			var vvvv =$(this).next('.hiddenbcNo').val();
 			if(!delComm){
 				event.preventDefault();
-				location.href="boardDetail.jsp?boNo=<%=boNo%>"
+				location.href="boardDetail.jsp?boNo=<%=boNo%>&userNo=<%=userNo%>"
+				return false;
+			}else{
+				location.href="bo_CommentDelete_ok.jsp?bcNo="+vvvv+"&boNo=<%=boNo%>&userNo=<%=userNo%>";
 			}
+			
 		});
+		
+		
 		
 	});
 </script>
@@ -224,14 +241,15 @@
 		<div class="detailBlock">
 			<label class="titleLabel">제목 : </label>
 			<div class="title">
-				<input type="text" name="title" id="title" value="<%=vo.getBoTitle() %>">
+				<input type="text" name="title" id="title" value="<%=vo.getBoTitle() %>" disabled>
 			</div>
-				<input type="text" name="userid" class="userName" value="<%=vo.getUserId() %>">
-				<input type="text" name="regdate" class="regdate" value="<%=sdf.format(vo.getBoDate()) %>">
+				<label class="userIdLabel">글쓴이 : </label>
+				<input type="text" name="userid" class="userName" value="<%=vo.getUserId() %>" disabled>
+				<input type="text" name="regdate" class="regdate" value="<%=sdf.format(vo.getBoDate()) %>" disabled>
 				<label class="regdateLabel"> 등록일 : </label><br><br>
 			<div class="contentDiv">
 				<div class="content" >
-					<textarea rows="114" cols="30" name="content" id="content"><%=vo.getBoCon() %></textarea> 
+					<textarea rows="114" cols="30" name="content" id="content" disabled><%=vo.getBoCon() %></textarea> 
 				</div>
 			</div>
 		</div>
@@ -257,9 +275,9 @@
 						<td><%=commVo.getUserId() %></td>
 						<td class="commentTd">
 							<%=commVo.getBcCom() %>
-							<%=commVo.getBcNo()%>
 							<%if(userId.equals(commVo.getUserId())) {%>
-								<input type="button" class="bcDeleteBtn" onClick="location.href='bo_CommentDelete_ok.jsp?bcNo=<%=commVo.getBcNo()%>&boNo=<%=boNo%>'" value="삭제">
+								<input type="button" class="bcDeleteBtn" value="삭제">
+								<input type="hidden" class="hiddenbcNo" value="<%=commVo.getBcNo()%>">
 							<%}else{ %>
 								<input type="hidden" class="bcDeleteBtn">
 							<%} %>
@@ -272,12 +290,12 @@
 			</table>
 		</div>
 		<div class="commentInsert">
-			<form action="bo_CommentWrite_ok.jsp" method="post">
+			<form action="bo_CommentWrite_ok.jsp" method="post" id="frmComm">
+				<input type="hidden" value="<%=userNo %>" name="userNo">
 				<input type="hidden" value="<%=boNo %>" name="boNo">
 				<!-- 댓글 입력 -->
-				<span class="commentUser"><!-- 댓글 달 유저이름 --></span>
 				<span class="comment">
-				<textarea rows="3" cols="100" class="comment" name="comment"></textarea> 
+				<textarea rows="3" cols="100" class="comment" name="comment" ></textarea> 
 					<input type="submit" class="submit" value="등록">
 				</span>
 			</form>

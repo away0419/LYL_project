@@ -10,6 +10,6 @@
 	MyuserService usv = new MyuserService();
 	int cnt = subService.subscribe(userNo2, userNo);
 	
-	int cnt2 = usv.updateSubCnt(Integer.parseInt(userNo), 0);
+	int cnt2 = usv.updateSubCnt(Integer.parseInt(userNo2), 0);
 %>
 {"cnt" : <%=cnt %>}

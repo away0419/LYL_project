@@ -54,6 +54,45 @@ public class MyuserDAO {
 		}
 
 	}
+	public MyuserVO selectByUserNo(String no) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = pool.getConnection();
+			String sql = "select * from myuser\r\n" + "where userno = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, no);
+			
+			MyuserVO vo = null;
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				int userNo = rs.getInt("userNo");
+				String userId = rs.getString("userId");
+				String userPwd = rs.getString("userPwd");
+				String userName = rs.getString("userName");
+				int userPhone = rs.getInt("userPhone");
+				String userEmail = rs.getString("userEmail");
+				Timestamp userJoin = rs.getTimestamp("userJoin");
+				int userSub = rs.getInt("userSub");
+				String userImgName = rs.getString("userImgName");
+				int userImgSize = rs.getInt("userImgSize");
+				String userImgOriName = rs.getString("userImgOriName");
+				String userDelFalg = rs.getString("userDelFalg");
+				
+				vo = new MyuserVO(userNo, userId, userPwd, userName, userPhone, userEmail, userJoin, userSub,
+						userImgName, userImgSize, userImgOriName, userDelFalg);
+				
+			}
+			System.out.println("select 결과 = " + vo + "매개변수=" + no);
+			return vo;
+			
+		} finally {
+			pool.dbClose(rs, ps, conn);
+		}
+		
+	}
 
 	public int insertMyuser(MyuserVO vo) throws SQLException {
 		Connection conn = null;
@@ -135,6 +174,27 @@ public class MyuserDAO {
 			System.out.println("회원 정보 수정 결과 = " + cnt + "매개변수=" + vo);
 			return cnt;
 
+		} finally {
+			pool.dbClose(ps, conn);
+		}
+	}
+	public int pwdUpdate(String userEmail, String pwd) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			conn = pool.getConnection();
+			String sql = "update myuser\r\n"
+					+ "set userpwd = ? \r\n"
+					+ "where useremail = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, pwd);
+			ps.setString(2, userEmail);
+			
+			int cnt = ps.executeUpdate();
+			
+			return cnt;
+			
 		} finally {
 			pool.dbClose(ps, conn);
 		}

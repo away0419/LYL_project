@@ -1,6 +1,7 @@
 package src.aftervideo;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class aftervideoService {
 	private aftervideoDAO dao;
@@ -17,5 +18,8 @@ public class aftervideoService {
 	}
 	public int selectAftervideo(String videoNo, String userNo) throws SQLException {
 		return dao.selectAftervideo(videoNo, userNo);
+	}
+	public List<aftervideoVO> selectAllByUserNo(String userNo, int rowcnt) throws SQLException{
+		return dao.selectAllByUserNo(userNo, rowcnt);
 	}
 }

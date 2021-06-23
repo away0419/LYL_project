@@ -38,4 +38,10 @@ public class MyuserService {
 	public int updateSubCnt(int userNo,int check) throws SQLException {
 		return userDao.updateSubCnt(userNo, check);
 	}
+	public int pwdUpdate(String userEmail, String pwd) throws SQLException {
+		return userDao.pwdUpdate(userEmail, pwd);
+	}
+	public MyuserVO selectByUserNo(String no) throws SQLException {
+		return userDao.selectByUserNo(no);
+	}
 }

@@ -20,6 +20,27 @@
 	.ReComDiv{
 		padding-left: 50px;
 	}
+	.comText {
+ 
+	padding: 9px;
+	 
+	border: solid 1px #460023;
+	 
+	outline: 0;
+	 
+	background: -webkit-gradient(linear, left top, left 25, from(#edfcff), color-stop(4%, #cff6ff), to(#edfcff));
+	 
+	background: -moz-linear-gradient(top, #edfcff, #edfcff 1px, #edfcff 25px);
+	 
+	box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+	 
+	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+	 
+	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+	 
+	 
+	 
+	}
 </style>
 
 <script>
@@ -114,7 +135,7 @@
     		$(this).parent().children('.ReComDiv').toggle();
     		var reComNo= $(this).parent().children('.hid1').val();
     		var reComNo2= parseInt($(this).parent().children('.hid2').val());
-    		var userNumber = "${sessionScope.userNo}";
+    		var userNo = "${sessionScope.userNo}";
     		var firstCheck = $(this).parent().children('.reComBtFirstCheck').val();
     		var reSeeMore = $(this).parent().children('.reComSeeMore').val();
     		
@@ -126,7 +147,7 @@
 
         			type : "post", //get post둘중하나
 
-        			data : {"vidComCnt":0,"vidNo":vidNo, "vidGroup":reComNo, "loginUserNo":userNumber},
+        			data : {"vidComCnt":0,"vidNo":vidNo, "vidGroup":reComNo, "loginUserNo":userNo},
         			
 
         			success : function(data) {
@@ -135,7 +156,6 @@
 						
         				var comList = obj.comList;
         				var comListSize = obj.comListSize;
-        				
         				if(comListSize>0){
         					$('.vidComment').eq(reComNo2).children('.ReComDiv').append("<br>");
         					$('.vidComment').eq(reComNo2).children('.reComBtFirstCheck').val(1);
@@ -199,7 +219,7 @@
     		var reComNo= $(this).parent().parent().children('.hid1').val();
     		var reComNo2= parseInt($(this).parent().parent().children('.hid2').val());
     		var reSeeMore = $(this).parent().parent().children('.reComSeeMore').val();
-    		var userNumber = "${sessionScope.userNo}";
+    		var userNo = "${sessionScope.userNo}";
     		
     		
     			$.ajax({
@@ -208,7 +228,7 @@
 
         			type : "post", //get post둘중하나
 
-        			data : {"vidComCnt":reSeeMore,"vidNo":vidNo, "vidGroup":reComNo, "loginUserNo":userNumber},
+        			data : {"vidComCnt":reSeeMore,"vidNo":vidNo, "vidGroup":reComNo, "loginUserNo":userNo},
         			
 
         			success : function(data) {
@@ -217,6 +237,7 @@
 
         				var comList = obj.comList;
         				var comListSize = obj.comListSize;
+        				
         				vidReComCnt=$('.vidComment').eq(reComNo2).children('.ReComDiv').children('.vidReComment').last().children('.reComCnt').val();
         				for(var i=0; i<comListSize; i++){
         					var reotherComNo='<input type="hidden" class="rehid1" value="'+comList[i].comNo+'">';
@@ -285,6 +306,7 @@
 	<jsp:useBean id="myuserService" class="src.myuser.MyuserService" scope="page"></jsp:useBean>
 	<jsp:useBean id="aftervideoService" class="src.aftervideo.aftervideoService" scope="page"></jsp:useBean>
 	<jsp:useBean id="subscribeService" class="src.subscribe.subscribeService" scope="page"></jsp:useBean>
+	<jsp:useBean id="watchrecordService" class="src.watchrecord.watchrecordService" scope="page"></jsp:useBean>
 	
 	<%
 		int userNo=0;
@@ -307,6 +329,7 @@
 			myuserVo = myuserService.selectMyuserByVidNo(vidno); //유저번호, 구독자, 타이틀 밖에 안들어있어요
 			cnt = aftervideoService.selectAftervideo(vidno, Integer.toString(userNo));
 			subCnt = subscribeService.selectSubscribe(Integer.toString(myuserVo.getUserNo()), Integer.toString(userNo));
+			int watCnt= watchrecordService.insertWatchrecord(Integer.toString(userNo), vidno);
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
@@ -324,12 +347,12 @@
    <header>
    </header>
    <iframe id="player" width="1200" height="650" src=<%=vidUrl%> allowfullscreen=""></iframe>
-	<p id='vidTitle'>title : &nbsp;<%=videoVo.getVidTitle() %></p>
+	<p id='vidTitle' class="h4"><%=videoVo.getVidTitle() %></p>
 	<p id='vidHits'>조회수 <%=videoVo.getVidHits() %> 회 <%=sdf.format(videoVo.getVidDate()) %></p>
 	
 	<hr>
-	<p id='vidUploaderId'>id :&nbsp;<%=myuserVo.getUserId() %> </p>
-	<p id='vidG'>구독자<span id='vidGs'><%=myuserVo.getUserSub() %></span> 명</p>
+	<p id='vidUploaderId' class="fs-5"><a class="text-decoration-none" href="../userPage/myPage.jsp?vidno=<%=vidno %>"><%=myuserVo.getUserId() %></a> </p>
+	<p id='vidG'>구독자&nbsp;<span id=vidGs><%=myuserVo.getUserSub() %></span> 명</p>
 	
 	<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 		<%if(subCnt>0){%>
@@ -345,14 +368,14 @@
 	
 	</div>
 
-	<p id='vidContent'>내용 : &nbsp;<%=videoVo.getVidEx() %></p>
+	<p id='vidContent'><%=videoVo.getVidEx() %></p>
     <hr>
     <div id='vidCommentCnt'>
-    	<span>댓글 </span><span><%=videoVo.getVidCom() %></span><span>개</span>
+    	
     </div>
     <div class='vidComment' id ='myComment'>
-    	<textarea rows="2" cols="100" class="teComCon"></textarea>
-   	 	<button type="button" class="comWrite">댓글</button>
+    	<textarea class='comText teComCon' rows="2" cols="100"></textarea>
+   	 	<button type="button" class="comWrite btn btn-primary">댓글 쓰기</button>
     </div>
     <input type="hidden" class="vidComCnt" value=0>
     
@@ -701,9 +724,9 @@
     	}));//btComUpdate
     	
     	$('body').on('click','button.btReComUpdate',(function(){
-    		$(this).parent().children('.vidComment').toggle();
+    		$(this).parent().children('.vidComment2').toggle();
     		var content = $(this).parent().children('.reotherContent').text();
-    		$(this).parent().children('.vidComment').children('.teComCon').val(content);
+    		$(this).parent().children('.vidComment2').children('.teComCon').val(content);
     	}));//btReComUpdate
     	
     	$('body').on('click','button.recomWrite',(function(){

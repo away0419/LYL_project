@@ -8,6 +8,8 @@
 <%
 	//session으로 사용자아이디 받기
 	String boNo = request.getParameter("boNo");
+	String userNo = request.getParameter("userNo");
+
 	//2
 		BoardDAO dao = new BoardDAO();
 		BoardVO vo = null;
@@ -22,7 +24,7 @@
 		background: rgb(242, 242, 242);
 		width: 1000px;
 		height: auto;
-		margin: 10px auto;
+		margin: 10px 13%;
 		padding-top: 20px;
 		border-radius: 10px;
 	}
@@ -94,24 +96,35 @@
 <script type="text/javascript" src="/../js/datatables-simple-demo.js"></script>
 <script type="text/javascript">
 	$(function(){
-		
+		$('#frmEdit').submit(function(){
+			if($(".title").val().length<1){
+				alert('제목을 입력하세요');
+				event.preventDefault();
+				$(".title").focus();
+			}
+
+			if($("#content").val().length<1){
+				alert('내용을 입력하세요');
+				event.preventDefault();
+				$("#content").focus();
+			}
+		});
 		
 	});
 </script>
 <div class="listBody">
-	<form action="boardEdit_ok.jsp" method="post" >
+	<form action="boardEdit_ok.jsp" method="post" id="frmEdit">
 	<input type="hidden" name="boNo" value="<%=boNo%>">
+	<input type="hidden" name="userNo" value="<%=userNo%>">
 		<div id="titleH"><h2>게시글 수정</h2></div>
 		<div class="titleDiv">
 			<label>제목 : </label>
 			<input type="text" name="title" class="title" value="<%=vo.getBoTitle()%>">&nbsp;
-			<input type="checkbox" name="private" id="private">&nbsp;비공개
-			<div id="pwd">비밀번호 : <input type="password" name="pwd" class="pwd" value="<%=vo.getBoPwd()%>"></div>
 		</div>
 		<textarea name="content" id="content" cols="114" rows="30"><%=vo.getBoCon()%></textarea>
 		<div class="btnList">
 			<input type="submit" value="수정" class="btn11" id="submit" />
-			<input type="button" value="취소" class="btn11" id="btnCancle" onclick="location.href='boardDetail.jsp?boNo=<%=boNo%>'">
+			<input type="button" value="취소" class="btn11" id="btnCancle" onclick="location.href='boardDetail.jsp?boNo=<%=boNo%>&userNo=<%=userNo%>">
 		</div>
 	</form>
 </div>

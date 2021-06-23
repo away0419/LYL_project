@@ -10,6 +10,7 @@
 </head>
 <body>
 	<%
+		String userNo=request.getParameter("userNo");
 		String boNo=request.getParameter("boNo");
 	
 		//2
@@ -20,7 +21,7 @@
 			if(cnt>0){ %>
 			<script type="text/javascript">
 			 	alert('게시글을 삭제하였습니다.');
-		        location.href="boardList.jsp";
+		        location.href="boardList.jsp?userNo=<%=userNo%>";
 	        </script>
 		<%}else{ %>
 			<script type="text/javascript">

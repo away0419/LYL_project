@@ -6,9 +6,6 @@ public class BoCommentVO {
 	private int bcNo; /* 댓글 번호 */
 	private String bcCom; /* 내용 */
 	private Timestamp bcDate; /* 날짜 */
-	private int bcRe; /* 답글수 */
-	private int bcLike; /* 좋아요 */
-	private int bcPwd; /* 비밀번호 */
 	private int bcStep; /* 댓글 단계 */
 	private int bcSort; /* 댓글 정렬 번호 */
 	private int bcGroupNo; /* 댓글 그룹 번호 */
@@ -20,14 +17,11 @@ public class BoCommentVO {
 		super();
 	}
 	
-	public BoCommentVO(int bcNo, String bcCom, Timestamp bcDate, int bcRe, int bcLike, int bcPwd, int bcStep,
+	public BoCommentVO(int bcNo, String bcCom, Timestamp bcDate, int bcStep,
 			int bcSort, int bcGroupNo, int boNo, int userNo, String userId) {
 		this.bcNo = bcNo;
 		this.bcCom = bcCom;
 		this.bcDate = bcDate;
-		this.bcRe = bcRe;
-		this.bcLike = bcLike;
-		this.bcPwd = bcPwd;
 		this.bcStep = bcStep;
 		this.bcSort = bcSort;
 		this.bcGroupNo = bcGroupNo;
@@ -60,29 +54,6 @@ public class BoCommentVO {
 		this.bcDate = bcDate;
 	}
 
-	public int getBcRe() {
-		return bcRe;
-	}
-
-	public void setBcRe(int bcRe) {
-		this.bcRe = bcRe;
-	}
-
-	public int getBcLike() {
-		return bcLike;
-	}
-
-	public void setBcLike(int bcLike) {
-		this.bcLike = bcLike;
-	}
-
-	public int getBcPwd() {
-		return bcPwd;
-	}
-
-	public void setBcPwd(int bcPwd) {
-		this.bcPwd = bcPwd;
-	}
 
 	public int getBcStep() {
 		return bcStep;

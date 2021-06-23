@@ -199,5 +199,5 @@
 			</nav>
 		</div>
 		<div id="layoutSidenav_content">
-			<main>
+			<main style="margin-left: 140px; margin-top: 30px;">
 				<div class="container-fluid px-4">

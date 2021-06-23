@@ -135,7 +135,7 @@
 				  <input class="form-control" type="file" id="vidFile" name="upfile">
 				</div>
 				<div class="mb-3 ms-5 me-5">
-				  <label for="vidFile" class="form-label">미리보기 업로드해주세요</label>
+				  <label for="thuFile" class="form-label">미리보기 업로드해주세요</label>
 				  <input class="form-control" type="file" id="thuFile" name="thuFile">
 				</div>
 				<div class="mb-3 ms-5 me-5">

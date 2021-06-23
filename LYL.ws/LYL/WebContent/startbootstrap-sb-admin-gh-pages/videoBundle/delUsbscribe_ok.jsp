@@ -8,6 +8,6 @@
 	subscribeService subService = new subscribeService();
 	MyuserService msv = new MyuserService();
 	int cnt = subService.dissubscribe(userNo, userNo2);
-	int cnt2 = msv.updateSubCnt(Integer.parseInt(userNo), 1);
+	int cnt2 = msv.updateSubCnt(Integer.parseInt(userNo2), 1);
 %>
 {"cnt" : <%=cnt %>}

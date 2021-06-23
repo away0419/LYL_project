@@ -53,14 +53,14 @@ main {
 .main_Thumbnail {
 	margin: 0;
 	width: 300px;
-	height: auto;
+	height: 200px;
 	padding-right: 10px;
 }
 
 .search_Thumbnail {
 	margin: 0;
-	width: 500px;
-	height: auto;
+	width: 400px;
+	height: 280px;
 	padding-right: 10px;
 	float: left;
 	display: inline;

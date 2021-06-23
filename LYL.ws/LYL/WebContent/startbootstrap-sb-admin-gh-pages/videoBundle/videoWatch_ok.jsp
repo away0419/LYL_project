@@ -29,12 +29,12 @@
 			}
 		}
 		String userno=String.valueOf(vo.getUserNo());
-		MyuserVO mvo = msv.selectMyuserByVidNo(userno);
+		MyuserVO mvo = msv.selectByUserNo(userno); 
 	%>
 	
 	{"comLikeCheck" : "<%=comLikeCheck %>", "comUserNo" : "<%=vo.getUserNo() %>", "comNo" : "<%=vo.getComNo() %>", "comId" : "<%=mvo.getUserId() %>", "comCon" : "<%=vo.getComCon() %>", "comLike" : "<%=vo.getComLike() %>", "comRe" : "<%=vo.getComRe() %>"}<%if(i<list.size()-1){ %>,<%} %> 
 		
 	<%}
-%>],"comListSize":<%=list.size()%> }<%
+%>],"comListSize":<%=list.size()%>}<%
 
 %>

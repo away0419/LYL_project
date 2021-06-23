@@ -1,3 +1,4 @@
+<%@page import="java.sql.SQLException"%>
 <%@page import="theme.ThemeVO"%>
 <%@page import="theme.ThemeService"%>
 <%@page import="video.VideoDAO"%>
@@ -8,7 +9,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ include file="/startbootstrap-sb-admin-gh-pages/inc/top.jsp"%>
-<link href="../css/videoStyles.css" rel="stylesheet">
+<link href="../css/videoStyles.css?after" rel="stylesheet">
 <%
 	VideoService vvs = new VideoService();
 	int vidCnt = vvs.vidAllCnt();
@@ -34,6 +35,12 @@
 		
 		vidWatch[i] = "../videoBundle/videoWatch.jsp?vidNo="+voRandom[i].getVidNo();
 	}
+	String mostView = null;
+	try{
+		mostView=vvs.selectVideoMostView();
+	}catch(SQLException e){
+		e.printStackTrace();
+	}
 %>
 <script>
    var scThNum =1;
@@ -57,7 +64,7 @@
               			data : {"scThNum":scThNum},
               			
 
-              			success : function(data) {              				
+              			success : function(data) {              				 
               				var obj = JSON.parse(data);
 
               				var vidList = obj.vidList;
@@ -160,8 +167,7 @@
    </div>
 
    <iframe id="player" width="630" height="360"
-      src="https://www.youtube.com/embed/4TWR90KJl84"></iframe>
-   <video src="https://www.youtube.com/embed/4TWR90KJl84"></video>
+      src="<%=mostView%>"></iframe>
    
    
    

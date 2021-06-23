@@ -17,7 +17,6 @@ public class watchrecordVO {
 
 	public watchrecordVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

@@ -9,19 +9,15 @@ public class BoardVO {
 	private int boHits; /* 조회수 */
 	private int boCom; /* 댓글수 */
 	private Timestamp boDate; /* 작성일 */
-	private int boPwd; /* 비밀번호 */
 	private int userNo; /* 크리에이터 */
 	private String userId; /* 글쓴이 */
-	private int boStep; /* 게시글 단계 */
-	private int boSort; /* 게시글 정렬 번호 */
-	private int boGroupNo; /* 게시글 그룹번호 */
 	
 	public BoardVO() {
 		super();
 	}
 
-	public BoardVO(int boNo, String boTitle, String boCon, int boHits, int boCom, Timestamp boDate, int boPwd,
-			int userNo, String userId, int boStep, int boSort, int boGroupNo) {
+	public BoardVO(int boNo, String boTitle, String boCon, int boHits, int boCom, Timestamp boDate,
+			int userNo, String userId) {
 		super();
 		this.boNo = boNo;
 		this.boTitle = boTitle;
@@ -29,12 +25,8 @@ public class BoardVO {
 		this.boHits = boHits;
 		this.boCom = boCom;
 		this.boDate = boDate;
-		this.boPwd = boPwd;
 		this.userNo = userNo;
 		this.userId = userId;
-		this.boStep = boStep;
-		this.boSort = boSort;
-		this.boGroupNo = boGroupNo;
 	}
 
 
@@ -86,14 +78,6 @@ public class BoardVO {
 		this.boDate = boDate;
 	}
 
-	public int getBoPwd() {
-		return boPwd;
-	}
-
-	public void setBoPwd(int boPwd) {
-		this.boPwd = boPwd;
-	}
-
 	public int getUserNo() {
 		return userNo;
 	}
@@ -110,29 +94,4 @@ public class BoardVO {
 		this.userId = userId;
 	}
 
-	public int getBoStep() {
-		return boStep;
-	}
-
-	public void setBoStep(int boStep) {
-		this.boStep = boStep;
-	}
-
-	public int getBoSort() {
-		return boSort;
-	}
-
-	public void setBoSort(int boSort) {
-		this.boSort = boSort;
-	}
-
-	public int getBoGroupNo() {
-		return boGroupNo;
-	}
-
-	public void setBoGroupNo(int boGroupNo) {
-		this.boGroupNo = boGroupNo;
-	}
-	
-	
 }

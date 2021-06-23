@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8"">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -14,28 +14,26 @@
 	//write.jsp에서 post방식으로 서브밋
 	//1.
 	request.setCharacterEncoding("utf-8");
+	String userNo = request.getParameter("userNo");
 	String title = request.getParameter("title");
 	String content = request.getParameter("content");
-	String pwd = request.getParameter("pwd");
-	String userId = "이름";     //==========임시 수정해야함!!!!!
-	String userNo = "1";      //==========임시 수정해야함!!!!!
+	String userId =(String) session.getAttribute("userid");
 	 
 	//2.
 	BoardDAO dao = new BoardDAO();
 	BoardVO vo =  new BoardVO();
 	vo.setBoTitle(title);
 	vo.setBoCon(content);
-	vo.setBoPwd(Integer.parseInt(pwd));
 	vo.setUserNo(Integer.parseInt(userNo));
 	vo.setUserId(userId);
 	try {
-		int cnt=dao.insertBoard(vo);
+		int cnt=dao.insertBoard(vo, Integer.parseInt(userNo));
 		//3.
 		if (cnt > 0) {
 			%>
 			<script type="text/javascript">
 				alert('글쓰기 처리 되었습니다');
-				location.href = "boardList.jsp";
+				location.href = "boardList.jsp?userNo="+<%=userNo%>;
 			</script>
 		<%} else {%>
 			<script type="text/javascript">

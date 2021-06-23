@@ -151,6 +151,48 @@ public class VideoDAO {
 			pool.dbClose(rs,ps,conn);
 		}
 	}
+	public List<VideoVO> videoSelectByUserId(int userNo ,int vidCnt) throws SQLException{
+		Connection conn =null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<VideoVO> list = new ArrayList<VideoVO>();
+		
+		try {
+			conn= pool.getConnection();
+			
+			String sql = "select * from \r\n"
+					+ "(select  ad.*, rownum as rowcnt from \r\n"
+					+ "(select * from video where userno=? order by vidhits desc)ad)\r\n"
+					+ " where rowcnt>? and rowcnt<=?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, userNo);
+			ps.setInt(2, vidCnt);
+			ps.setInt(3, vidCnt+4);
+			
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				VideoVO vvo = new VideoVO();
+				vvo.setVidNo(rs.getInt(1));
+				vvo.setVidTitle(rs.getString(2));
+				vvo.setVidHits(rs.getLong(3));
+				vvo.setVidCom(rs.getInt(4));
+				vvo.setVidurl(rs.getString(5));
+				vvo.setVidLike(rs.getInt(6));
+				vvo.setVidDate(rs.getTimestamp(7));
+				vvo.setVidEx(rs.getString(8));
+				vvo.setVidTheme(rs.getInt(9));
+				vvo.setUserNo(rs.getInt(10));
+				vvo.setVidThu(rs.getString(11));
+				
+				list.add(vvo);
+				
+			}
+			return list;
+		}finally {
+			pool.dbClose(rs,ps,conn);
+		}
+	}
 	
 	public int vidAllCnt() throws SQLException {
 		Connection conn = null;
@@ -226,6 +268,62 @@ public class VideoDAO {
 			pool.dbClose(ps, conn);
 		}
 	}
+	
+	public String selectVideoMostView() throws SQLException {
+	      Connection conn = null;
+	      PreparedStatement ps = null;
+	      ResultSet rs = null;
+	      try {
+	         conn = pool.getConnection();
+	         
+	         String sql = "select * from \r\n"
+	               + "(select vidurl from video order by vidhits desc)\r\n"
+	               + "where rownum <2";
+	         ps = conn.prepareStatement(sql);
+	         
+	         rs= ps.executeQuery();
+	         String vidurl = null;
+	         if(rs.next()) {
+	            vidurl = rs.getString(1);
+	            
+	         }
+	         System.out.println("결과 값 vidurl="+vidurl);
+	         return vidurl;
+	   
+	         
+	      }finally {
+	         pool.dbClose(rs, ps, conn);
+	      }
+	   }
+	public List<VideoVO> selectMyVideoMostView(String userNo) throws SQLException {
+	      Connection conn = null;
+	      PreparedStatement ps = null;
+	      ResultSet rs = null;
+	      try {
+	         conn = pool.getConnection();
+	         
+	         String sql = "select * from \r\n"
+	               + "(select vidurl from video where userNo=? order by vidhits desc)\r\n"
+	               + "where rownum <3";
+	         ps = conn.prepareStatement(sql);
+	         ps.setString(1, userNo);
+	         
+	         rs= ps.executeQuery();
+	         
+	         List<VideoVO> list = new ArrayList<VideoVO>();
+	         while(rs.next()) {
+	        	 VideoVO vvo = new VideoVO();
+				 vvo.setVidurl(rs.getString(1));
+				 
+				 list.add(vvo);
+	         }
+	         System.out.println("결과 값 list="+list);
+	         return list;
+	         
+	      }finally {
+	         pool.dbClose(rs, ps, conn);
+	      }
+	   }
 }
 
 

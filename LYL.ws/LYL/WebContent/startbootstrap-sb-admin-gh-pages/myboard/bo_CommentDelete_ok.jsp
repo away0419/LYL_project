@@ -7,11 +7,11 @@
 <%
 	//1
 	request.setCharacterEncoding("utf-8");
+	String userId=(String)session.getAttribute("userid");
 	String bcNo=request.getParameter("bcNo");
 	String boNo=request.getParameter("boNo");
-	String userId="textComm"; //==========임시 수정해야함!!!!!
+	String userNo=request.getParameter("userNo");
 	
-	System.out.println(bcNo);
 	//2 
 	BoCommentDAO dao = new BoCommentDAO();
 	
@@ -20,7 +20,7 @@
 		if(cnt>0){ %>
 		  <script type="text/javascript">
 		    alert("댓글이 삭제되었습니다.");
-		    location.href="boardDetail.jsp?boNo=<%=boNo%>";
+		    location.href="boardDetail.jsp?boNo=<%=boNo%>&userNo=<%=userNo%>";
 		  </script>
 	  <%}else{%>
 		  <script type="text/javascript">

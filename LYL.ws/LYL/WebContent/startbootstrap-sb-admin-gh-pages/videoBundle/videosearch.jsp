@@ -6,7 +6,7 @@
 <%@page import="video.VideoService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="../css/videoStyles.css" rel="stylesheet">
+<link href="../css/videoStyles.css?after" rel="stylesheet">
 <%@ include file="/startbootstrap-sb-admin-gh-pages/inc/top.jsp"%>
 
    

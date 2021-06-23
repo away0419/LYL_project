@@ -66,8 +66,8 @@ public class subscribeDAO {
 			conn= pool.getConnection();
 			String sql = "select count(*) from subscrib where userno=? and userno2=?";
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, userNo2);
-			ps.setString(2, userNo);
+			ps.setString(1, userNo);
+			ps.setString(2, userNo2);
 			
 			int cnt = 0;
 			rs = ps.executeQuery();

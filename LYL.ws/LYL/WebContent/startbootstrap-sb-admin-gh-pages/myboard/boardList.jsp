@@ -11,7 +11,7 @@
 	.listBody{
 		width: 1000px;
 		height: auto;
-		margin: 10px auto;
+		margin: 10px 13%;
 		padding-top: 20px;
 	}
 	.titleH{
@@ -94,8 +94,9 @@
 	});
 </script>
 <%
-	//int userNo=(int)session.getAttribute("userNo");
-	//String userId=(String)session.getAttribute("userId");
+	String userNo=request.getParameter("userNo");
+	String userId =(String) session.getAttribute("userid");
+	System.out.println(userId);
 	
 	
 	//[1] myPage.jsp에서 [게시판]버튼 클릭해서 get방식으로 이동
@@ -105,7 +106,7 @@
 	BoardDAO dao = new BoardDAO();
 	List<BoardVO> list = null;
 	try{
-		list=dao.selectAllBoard();
+		list=dao.selectBoard(Integer.parseInt(userNo));
 	}catch(SQLException e){
 		e.printStackTrace();
 	}
@@ -146,8 +147,8 @@
 <script type="text/javascript" src="/../js/datatables-simple-demo.js"></script>
 <script type="text/javascript">
 	$(function(){
-		$('#upload').click(function(){
-			location.href="boardWrite.jsp";
+		$('.upload').click(function(){
+			location.href="boardWrite.jsp?userNo="+<%=userNo%>;
 		});
 	});
 </script>
@@ -158,10 +159,9 @@
 	<table class="box2">
 		<colgroup>
 			<col style="width:15%;" />
-			<col style="width:54%;" />
-			<col style="width:14%;" />
-			<col style="width:9%;" />
-			<col style="width:9%;" />      
+			<col style="width:60%;" />
+			<col style="width:15%;" />
+			<col style="width:10%;" />
 		</colgroup>
 		<thead>
 			<tr>
@@ -186,7 +186,7 @@
 				%>
 					<tr>
 						<td><%=vo.getUserId() %></td> <!-- 내용이 이름으로 가는 이유 모름 -->
-						<td class="title"><a href="countUpdate.jsp?boNo=<%=vo.getBoNo() %>"><%=vo.getBoTitle() %></a></td>
+						<td class="title"><a href="countUpdate.jsp?boNo=<%=vo.getBoNo() %>&userNo=<%=userNo%>"><%=vo.getBoTitle() %></a></td>
 						<td><%=sdf.format(vo.getBoDate()) %></td>
 						<td><%=vo.getBoHits() %></td>
 					</tr>

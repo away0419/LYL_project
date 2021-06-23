@@ -1,6 +1,7 @@
+<%@page import="src.common.Utility"%>
 <%@page import="video.VideoVO"%>
 <%@page import="video.VideoDAO"%>
-<%@page import="src.common.Utility"%>
+
 <%@page import="java.sql.SQLException"%>
 <%@page import="src.myuser.MyuserVO"%>
 <%@page import="src.myuser.MyuserDAO"%>
@@ -14,7 +15,7 @@
 
 String saveDir = Utility.VIDEO_UPLOAD_PATH;
 
-int maxSize = 2 * 1024 * 1024;
+int maxSize = 100 * 1024 * 1024;
 String msg = "업로드 실패", url = "/startbootstrap-sb-admin-gh-pages/userPage/videoUp.jsp";
 try {
 	MultipartRequest mr = new MultipartRequest(request, saveDir, maxSize, "utf-8", new DefaultFileRenamePolicy());
@@ -39,16 +40,23 @@ try {
 	VideoVO vo = new VideoVO();
 
 	vo.setVidTitle(vidTitle);
-	vo.setVidurl(vidurl);
 	vo.setVidEx(vidEx);
 	vo.setVidTheme(Integer.parseInt(vidTheme));
 	vo.setUserNo(userNo);
 	int index = vidurl.lastIndexOf('/');
-	if(vidurl!=null){
+	if(vidurl!=null && !vidurl.isEmpty()){
 		vidThuName = "http://img.youtube.com/vi/"+vidurl.substring(index+1)+"/maxresdefault.jpg";
 		System.out.println(vidThuName);
 		vidurl = "https://www.youtube.com/embed/"+vidurl.substring(index+1);
+		vo.setVidurl(vidurl);
+	}else{
+		
+		vidurl = "../videoFile/"+fileName+"";
+		vidThuName = "../videoFile/"+vidThuName+"";
+		vo.setVidurl(vidurl);
+		
 	}
+
 	vo.setVidThu(vidThuName);
 	vo.setVidName(fileName);
 	vo.setVidSize(fileSize);

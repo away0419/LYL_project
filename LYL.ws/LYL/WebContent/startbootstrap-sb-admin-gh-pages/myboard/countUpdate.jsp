@@ -14,10 +14,12 @@
    //=> http://localhost:9090/mystudy/board/countUpdate.jsp?no=5
    //1
    String boNo=request.getParameter("boNo");
+   String userNo=request.getParameter("userNo");
+   System.out.println(userNo);
    if(boNo==null || boNo.isEmpty()){ %>
       <script type="text/javascript">
          alert('잘못된 url입니다.');
-         location.href="list.jsp";
+         location.back();
       </script>
       
    <%   return;
@@ -30,7 +32,7 @@
       int cnt=dao.updateReadCount(Integer.parseInt(boNo));   
       //3
       if(cnt>0){
-         response.sendRedirect("boardDetail.jsp?boNo="+boNo);
+         response.sendRedirect("boardDetail.jsp?boNo="+boNo+"&userNo="+userNo);
       }else{ %>
          <script type="text/javascript">
             alert('조회수 증가 실패');
