@@ -19,20 +19,15 @@ int subCnt=0;
 	try{
 		String vidNo = request.getParameter("vidno");//비디오에서 마이페이지 온다 가정
 		if(vidNo!=null && !vidNo.isEmpty()){
-			vo = myuserService.selectMyuserByVidNo(vidNo); //비디오 올린사람
-			String userid =(String) session.getAttribute("userid"); // 로그인한 사람
-			int userNo = 0;
-			if(session.getAttribute("userNo")==null){
-				userNo=0;
-			}else{
-			 userNo = (int) session.getAttribute("userNo");
-				 if(userNo == vo.getUserNo()){
-					 isMine=true;
-				 }else{
-					 isMine = false;
-				 }
-			}
-			subCnt = subscribeService.selectSubscribe(Integer.toString(vo.getUserNo()), Integer.toString(userNo));
+				if(session.getAttribute("userNo")!=null){
+					int userNo = (int) session.getAttribute("userNo");
+					vo = myuserService.selectMyuserByVidNo(vidNo); //비디오 올린사람
+					subCnt = subscribeService.selectSubscribe(Integer.toString(vo.getUserNo()), Integer.toString(userNo));
+				}else{
+					vo = myuserService.selectMyuserByVidNo(vidNo); //비디오 올린사람
+					String userid =(String) session.getAttribute("userid"); // 로그인한 사람
+				}
+			isMine = false;
 		}else{
 			String userid =(String) session.getAttribute("userid");
 			vo = myuserService.selectMyuser(userid);
@@ -121,6 +116,10 @@ try{
 		});
 		
 		$('#myboard').click(function(){
+			if(<%=session.getAttribute("userNo")%>==null){
+				alert("로그인하세요");
+				return;
+			}
 			location.href="../myboard/boardList.jsp?userNo="+<%=vo.getUserNo()%>;
 		});
 		
@@ -150,7 +149,8 @@ try{
 			<%}else{ %>
 				<%if(subCnt>0){%>
 					<div class="d-inline-flex position-relative start-50">
-					<button id="subscribe" class="btn btn-primary" type="button" value="<%=vo.getUserNo()%>" style="background: #dc3545">구독 취소</button>
+					<button id="subscribe" class="btn btn-primary me-2" type="button" value="<%=vo.getUserNo()%>" style="background: #dc3545">구독 취소</button>
+					<button id="myboard" type="button" class="btn btn-primary me-2">게시판</button>
 					</div>
 				<%}else { %>
 					<div class="d-inline-flex position-relative start-50">
@@ -199,6 +199,7 @@ try{
 		
 		$('#subscribe').click(function() {
 			if(<%=session.getAttribute("userNo")%>==null){
+				alert("로그인하세요");
 				return;
 			}
 			var vidGnum= $('#SUB').text();

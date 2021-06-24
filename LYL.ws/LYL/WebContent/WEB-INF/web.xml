@@ -17,6 +17,11 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
   	<location>/error/404code.jsp</location>
   </error-page>
   
+  <error-page>
+  	<error-code>500</error-code>
+  	<location>/error/500code.jsp</location>
+  </error-page>
+  
   
   	<servlet>
 		<servlet-name>nowServ</servlet-name>
