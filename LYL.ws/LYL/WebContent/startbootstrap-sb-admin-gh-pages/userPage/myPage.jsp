@@ -23,11 +23,17 @@ int subCnt=0;
 					int userNo = (int) session.getAttribute("userNo");
 					vo = myuserService.selectMyuserByVidNo(vidNo); //비디오 올린사람
 					subCnt = subscribeService.selectSubscribe(Integer.toString(vo.getUserNo()), Integer.toString(userNo));
+					if(userNo == vo.getUserNo()){
+						isMine=true;
+					}else{
+						isMine=false;
+					}
 				}else{
 					vo = myuserService.selectMyuserByVidNo(vidNo); //비디오 올린사람
 					String userid =(String) session.getAttribute("userid"); // 로그인한 사람
+					isMine = false;
 				}
-			isMine = false;
+				
 		}else{
 			String userid =(String) session.getAttribute("userid");
 			vo = myuserService.selectMyuser(userid);
@@ -173,7 +179,10 @@ try{
 	<div class="justify-content-center">
 		<div class="col-me-10">
 			<div class="d-inline-flex me-5">
-				<%if(list.size()!=0){ %>
+				<%if(list.size()==1){ %>
+				<iframe class="col me-2" id="player" width="640" height="360"
+					src="<%=list.get(0).getVidurl()%>?autoplay=1&mute=1"></iframe>
+				<%}else if(list.size()==2){ %>
 				<iframe class="col me-2" id="player" width="640" height="360"
 					src="<%=list.get(0).getVidurl()%>?autoplay=1&mute=1"></iframe>
 				<iframe id="player" width="640" height="360"

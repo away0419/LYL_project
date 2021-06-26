@@ -1,7 +1,6 @@
 <%@page import="src.common.Utility"%>
 <%@page import="video.VideoVO"%>
 <%@page import="video.VideoDAO"%>
-
 <%@page import="java.sql.SQLException"%>
 <%@page import="src.myuser.MyuserVO"%>
 <%@page import="src.myuser.MyuserDAO"%>

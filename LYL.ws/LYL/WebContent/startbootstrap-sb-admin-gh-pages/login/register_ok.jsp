@@ -8,9 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-String saveDir = application.getRealPath(Utility.UPLOAD_PATH);
-saveDir = config.getServletContext().getRealPath(Utility.UPLOAD_PATH);
-saveDir = Utility.TEST_UPLOAD_PATH;
+String saveDir = Utility.TEST_UPLOAD_PATH;
 
 int maxSize = 2 * 1024 * 1024;
 String msg = "회원가입 실패", url = "/startbootstrap-sb-admin-gh-pages/login/register.jsp";

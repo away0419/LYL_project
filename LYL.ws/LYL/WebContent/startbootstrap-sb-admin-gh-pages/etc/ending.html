@@ -1,0 +1,177 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jQuery Roll Credits Plugin Demo</title>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans'
+	rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="styles.css">
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="scripts.js" charset="utf-8"></script>
+</head>
+
+<style>
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+	blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
+	em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
+	b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
+	details, embed, figure, figcaption, footer, header, hgroup, menu, nav,
+	output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup,
+	menu, nav, section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+body {
+	background-color: mediumspringgreen;
+	text-align: center;
+	background: url('movie_theatre.jpg') no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	font-family: 'Open Sans', sans-serif;
+}
+
+#screen {
+	background-color: #CEE3F6;
+	width: 1000px;
+	margin: 56px auto;
+	text-align: center;
+	height: 580px;
+	position: relative;
+}
+
+.employee {
+	margin-top: 500px;
+	list-style-type: none;
+	position: absolute;
+	bottom: 0;
+	line-height: 2em;
+	text-align: center;
+	width: 100%;
+}
+
+.title {
+	font-size: 2em;
+	color: #000000;
+	opacity: 0;
+}
+
+.name {
+	font-size: 1.7em;
+	color: #000000;
+	opacity: 0;
+}
+</style>
+<script type="text/javascript" src="../js/scripts.js"></script>
+<script type="text/javascript">
+	console.log("loaded");
+
+	//Add all names here
+	var names = [ "준경", "관명", "혁"
+
+	];
+
+	//Add corresponding title here
+	var titles = [ "코드작업", "뒤에서구경", "물떠오기" ]
+
+	function writeName() {
+
+		var i = 0, employee, name, title, bottom;
+
+		var interval = setInterval(function() {
+			employee = '.employee.' + i;
+			name = '.name.' + i;
+			title = '.title.' + i;
+			$('<div></div>').appendTo('#screen').addClass('employee ' + i);
+			$('<h4></h4>').appendTo(employee).addClass('title ' + i);
+			$('<h2></h2>').appendTo(employee).addClass('name ' + i);
+			$(name).text(names[i]);
+			$(title).text(titles[i]);
+			i++;
+			if (i >= names.length)
+				clearInterval(interval);
+		}, 4000);
+
+	}
+
+	function fadeInText() {
+		var i = 0;
+		if (i < 150) {
+			var interval = setInterval(function() {
+				$('h2').css('opacity', '+=0.01');
+				$('h4').css('opacity', '+=0.01');
+				i++;
+			}, 50);
+		}
+
+	}
+
+	function scrollText() {
+		var interval = setInterval(function() {
+			$('.employee').css('bottom', '+=1px');
+			$('.employee').css('opacity', '-=0.0025');
+		}, 50);
+	}
+
+	$(function() {
+		writeName();
+		fadeInText();
+		scrollText();
+	})
+</script>
+
+<body>
+	<div id="screen"></div>
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push([ '_setAccount', 'UA-36251023-1' ]);
+		_gaq.push([ '_setDomainName', 'jqueryscript.net' ]);
+		_gaq.push([ '_trackPageview' ]);
+
+		(function() {
+			var ga = document.createElement('script');
+			ga.type = 'text/javascript';
+			ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl'
+					: 'http://www')
+					+ '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+</body>
+</html>

@@ -461,6 +461,10 @@
     			alert("로그인하세요")
     			return;
     		}
+			if(userNo==userNo2){
+				alert("자신을 구독할수 없어요")
+    			return;
+			}
 			
 			var vidGnum= $('#vidGs').text();
 			
