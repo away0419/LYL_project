@@ -368,10 +368,14 @@ ALTER TABLE BOARDCOMMENT
 		CONSTRAINT FK_MYBOARD_TO_BOARDCOMMENT
 		FOREIGN KEY (
 			boNo
+          
+            
 		)
 		REFERENCES MYBOARD (
-			boNo
-		);
+			boNo     
+       
+		)
+        ON DELETE CASCADE;
 
 ALTER TABLE BOARDCOMMENT
 	ADD
@@ -406,7 +410,8 @@ ALTER TABLE HINT
 		);
         
 --유저 정보--        
-insert into myuser values(myuser_seq.nextval,'admin','admin','admin',01000000000,'lyl@gmail.com',default,default,null,default,null, default );
+insert into myuser values(0,'min','min','admin',01000000000,'lyl@gmail.com',default,default,null,default,null, default );
+insert into myuser values(myuser_seq.nextval,'admin','admin','admin',01000000000,'lylpro10@gmail.com',default,default,null,default,null, default );
 insert into myuser values(myuser_seq.nextval,'aaa','aaa','aaa',01000000001,'aaa@naver.com',default,default,null,default,null, default );
 insert into myuser values(myuser_seq.nextval,'bbb','bbb','bbb',01000000002,'bbb@gmail.com',default,default,null,default,null, default );
 --유저 정보--
